@@ -1,7 +1,7 @@
 package team6.codesquad.kiosk.order.domain;
 
 public class Order {
-    private int orderId;
+    private int id;
     private int totalAmount;
     private int orderStatusId;
     private int receivedAmount;
