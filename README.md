@@ -75,10 +75,14 @@
   </dl>
 </details>
 
+### Branch Name Convention
+Postfix with #Issue
+Ex: `feature/#5`
+
 ### Commit Convention
 
-Prefix with Issue #
-Ex: `001-feat: add new feature`
+Prefix with #Issue
+Ex: `#5-feat: add new feature`
 
 > `feat` : 새로운 기능 추가  
 > `design`: css 등 사용자 UI 디자인 변경  
