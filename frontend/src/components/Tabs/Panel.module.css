@@ -1,0 +1,30 @@
+#panel {
+  width: 100%;
+}
+
+.panel_coffee {
+  background-color: lightcoral;
+}
+
+.panel__inner {
+  width: 100%;
+}
+
+.panel__ul {
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 5rem 50px;
+  padding: 50px;
+}
+
+.panel__li {
+  display: inline-flex;
+  flex-direction: column;
+  width: calc(50% - 25px);
+  box-sizing: border-box;
+  border: 1px solid black;
+  background-color: white;
+}
