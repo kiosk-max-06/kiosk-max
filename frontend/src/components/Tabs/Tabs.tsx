@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import TabList from "./TabList.tsx";
+import Panel from "./Panel.tsx";
 import styles from "./Tabs.module.css";
+import { ICategories, TCategoryNameList } from "../../types/Tabs.ts";
 
-function Tabs() {
-  const categories = ["커피", "라떼", "티", "쥬스", "디카페인"];
+function Tabs({ data }: { data: ICategories }) {
+  const categoryNames = getCategoryNames(data);
+  const [activeTabIdx, setActiveTabIdx] = useState(0);
 
   return (
-    <nav id={styles.tabs}>
-      <ul className={styles.tabs__ul}>
-        {categories.map((category) => (
-          <li className={styles.tabs__li} key={category}>
-            <button type="button" className={styles.tabs__button}>
-              {category}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div className={styles.tabs}>
+      <TabList {...{ categoryNames, activeTabIdx, setActiveTabIdx }} />
+
+      <Panel menuList={data[activeTabIdx].menuList} />
+    </div>
   );
+}
+
+function getCategoryNames(data: ICategories): TCategoryNameList {
+  return data.map((category) => category.name);
 }
 
 export default Tabs;
