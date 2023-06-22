@@ -7,7 +7,7 @@ import "./App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState<EActiveModal>(
-    EActiveModal.CASH
+    EActiveModal.MENU_OPTIONS
   );
 
   const mockData: ICategories = [
@@ -96,8 +96,15 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
+
       {activeModal in EActiveModal && activeModal !== EActiveModal.NONE && (
-        <Modal {...{ activeModal, setActiveModal }} />
+        <>
+          <article className="dimmed">
+            <h1 className="blind">배경을 어둡게</h1>
+          </article>
+
+          <Modal {...{ activeModal, setActiveModal }} />
+        </>
       )}
     </div>
   );
