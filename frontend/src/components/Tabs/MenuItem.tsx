@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./MenuItem.module.css";
 import { IMenuItemProps } from "../../types/Tabs.ts";
+import styles from "./MenuItem.module.css";
 
 function MenuItem({ name, price }: IMenuItemProps) {
   return (
