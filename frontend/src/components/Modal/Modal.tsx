@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { IModalProps } from "../../types/Modal.ts";
 
-function Modal() {
+function Modal({ activeModal, setActiveModal }: IModalProps) {
   const [count, setCount] = useState(1);
 
   function clickHandler(action: "increment" | "decrement") {
@@ -18,7 +19,12 @@ function Modal() {
   }
 
   return (
-    <dialog>
+    <dialog open>
+      {activeModal !== "cash" && (
+        <button type="button" onClick={() => setActiveModal(null)}>
+          X
+        </button>
+      )}
       <form>
         <figure>
           <span>☕</span>

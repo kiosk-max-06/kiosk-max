@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
 import Modal from "./components/Modal/Modal.tsx";
 import { ICategories } from "./types/Tabs.ts";
 import "./App.css";
 
 function App() {
+  const [activeModal, setActiveModal] = useState<
+    null | "menuOptions" | "payment" | "cash"
+  >(null);
+
   const mockData: ICategories = [
     {
       id: 1,
@@ -91,7 +95,7 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
-      <Modal />
+      {activeModal && <Modal {...{ activeModal, setActiveModal }} />}
     </div>
   );
 }
