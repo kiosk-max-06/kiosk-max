@@ -1,5 +1,6 @@
 import React from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
+import Modal from "./components/Modal/Modal.tsx";
 import { ICategories } from "./types/Tabs.ts";
 import "./App.css";
 
@@ -90,6 +91,7 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
+      <Modal />
     </div>
   );
 }
