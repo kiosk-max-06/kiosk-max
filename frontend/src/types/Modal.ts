@@ -3,4 +3,4 @@ export interface IModalProps {
   setActiveModal: React.Dispatch<React.SetStateAction<TActiveModal>>;
 }
 
-export type TActiveModal = "cash" | "menuOptions" | "payment" | null;
+export type TActiveModal = "cash" | "menuOptions" | "payment" | "none";

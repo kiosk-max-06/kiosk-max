@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
 import Modal from "./components/Modal/Modal.tsx";
 import { ICategories } from "./types/Tabs.ts";
+import { TActiveModal } from "./types/Modal.ts";
 import "./App.css";
 
 function App() {
-  const [activeModal, setActiveModal] = useState<
-    null | "menuOptions" | "payment" | "cash"
-  >(null);
+  const [activeModal, setActiveModal] = useState<TActiveModal>("none");
 
   const mockData: ICategories = [
     {
@@ -95,7 +94,7 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
-      {activeModal && <Modal {...{ activeModal, setActiveModal }} />}
+      {activeModal !== "none" && <Modal {...{ activeModal, setActiveModal }} />}
     </div>
   );
 }
