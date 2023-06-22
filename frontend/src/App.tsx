@@ -1,7 +1,7 @@
 import React from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
-import "./App.css";
 import { ICategories } from "./types/Tabs.ts";
+import "./App.css";
 
 function App() {
   const mockData: ICategories = [

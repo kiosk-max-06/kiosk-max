@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { ICategories, TCategoryNameList } from "../../types/Tabs.ts";
 import TabList from "./TabList.tsx";
 import Panel from "./Panel.tsx";
 import styles from "./Tabs.module.css";
-import { ICategories, TCategoryNameList } from "../../types/Tabs.ts";
 
 function Tabs({ data }: { data: ICategories }) {
   const categoryNames = getCategoryNames(data);

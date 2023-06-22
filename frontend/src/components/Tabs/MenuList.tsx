@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./MenuList.module.css";
-import MenuItem from "./MenuItem.tsx";
 import { IMenuListProps } from "../../types/Tabs.ts";
+import MenuItem from "./MenuItem.tsx";
+import styles from "./MenuList.module.css";
 
 function MenuList({ menuList }: IMenuListProps) {
   return (

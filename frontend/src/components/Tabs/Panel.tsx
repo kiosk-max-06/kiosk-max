@@ -1,7 +1,7 @@
 import React from "react";
+import { IPanelProps } from "../../types/Tabs.ts";
 import MenuList from "./MenuList.tsx";
 import styles from "./Panel.module.css";
-import { IPanelProps } from "../../types/Tabs.ts";
 
 function Panel({ menuList }: IPanelProps) {
   return (
