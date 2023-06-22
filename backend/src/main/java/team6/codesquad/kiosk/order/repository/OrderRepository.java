@@ -1,28 +1,28 @@
 package team6.codesquad.kiosk.order.repository;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import team6.codesquad.kiosk.order.domain.Order;
 
 @Repository
 public class OrderRepository {
-	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert jdbcInsert;
 
-	public OrderRepository(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public OrderRepository(DataSource dataSource) {
+		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		this.jdbcInsert = new SimpleJdbcInsert(dataSource)
+			.withTableName("order")
+			.usingGeneratedKeyColumns("id");
 	}
 
-	public void save(Order order) {
-		// jdbcTemplate.update("INSERT INTO order(total_amount, received_amount, change)")
+	public int save(Order order) {
 
-
-		// public void save(Article article) {
-		// 	jdbcTemplate.update("INSERT INTO article(writer, title, contents, created_at) values (?, ?, ?, ?)",
-		// 		article.getWriter(),
-		// 		article.getTitle(),
-		// 		article.getContents(),
-		// 		article.getCreateAt());
-		// }
+		return jdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(order)).intValue();
 	}
 }
