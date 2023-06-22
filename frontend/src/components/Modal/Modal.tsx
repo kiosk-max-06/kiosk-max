@@ -1,102 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import MenuOptionForm from "./MenuOptionForm.tsx";
+import PaymentForm from "./PaymentForm.tsx";
+import CashForm from "./CashForm.tsx";
 import { IModalProps } from "../../types/Modal.ts";
 
 function Modal({ activeModal, setActiveModal }: IModalProps) {
-  const [count, setCount] = useState(1);
-
-  function clickHandler(action: "increment" | "decrement") {
-    if (action === "increment") {
-      const nextCount = count + 1;
-      if (nextCount < 99) {
-        setCount(nextCount);
-      }
-    } else if (action === "decrement") {
-      const nextCount = count - 1;
-      if (nextCount > 0) {
-        setCount(nextCount);
-      }
-    }
-  }
+  const modalComponents: Record<string, JSX.Element> = {
+    menuOptions: <MenuOptionForm />,
+    payment: <PaymentForm />,
+    cash: <CashForm />,
+  };
 
   return (
     <dialog open>
       {activeModal !== "cash" && (
-        <button type="button" onClick={() => setActiveModal(null)}>
+        <button type="button" onClick={() => setActiveModal("none")}>
           X
         </button>
       )}
-      <form>
-        <figure>
-          <span>☕</span>
-          <figcaption className="blind">커피</figcaption>
-        </figure>
-        <fieldset>
-          <label htmlFor="large">
-            <input
-              className="blind"
-              type="radio"
-              name="size"
-              id="large"
-              required
-            />
-            큰거
-          </label>
-          <label htmlFor="small">
-            <input
-              className="blind"
-              type="radio"
-              name="size"
-              id="small"
-              required
-            />
-            작은거
-          </label>
-        </fieldset>
-        <fieldset>
-          <label htmlFor="hot">
-            <input
-              className="blind"
-              type="radio"
-              name="temperature"
-              id="hot"
-              required
-            />
-            뜨거운 것
-          </label>
-          <label htmlFor="ice">
-            <input
-              className="blind"
-              type="radio"
-              name="temperature"
-              id="ice"
-              required
-            />
-            차가운 것
-          </label>
-        </fieldset>
-        <fieldset>
-          <button type="button" onClick={() => clickHandler("decrement")}>
-            -
-          </button>
-          <input
-            type="number"
-            name="count"
-            id="count"
-            max="99"
-            min="1"
-            value={count}
-            onInput={(e) => {
-              const input = e.target as HTMLInputElement;
-              setCount(Number(input.value));
-            }}
-            required
-          />
-          <button type="button" onClick={() => clickHandler("increment")}>
-            +
-          </button>
-        </fieldset>
-        <button type="submit">담기</button>
-      </form>
+      {modalComponents[activeModal]}
     </dialog>
   );
 }
