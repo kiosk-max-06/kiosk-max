@@ -4,6 +4,7 @@ import PaymentForm from "./PaymentForm.tsx";
 import CashForm from "./CashForm.tsx";
 import IModalProps from "../../types/Modal.ts";
 import EActiveModal from "../../constants/EActiveModal.ts";
+import styles from "./Modal.module.css";
 
 function Modal({ activeModal, setActiveModal }: IModalProps) {
   const modalComponents: Record<EActiveModal, JSX.Element | null> = {
@@ -14,9 +15,12 @@ function Modal({ activeModal, setActiveModal }: IModalProps) {
   };
 
   return (
-    <dialog open>
+    <dialog open className={styles.modal}>
       {activeModal !== "CASH" && (
-        <button type="button" onClick={() => setActiveModal(EActiveModal.NONE)}>
+        <button
+          className={styles.modal__cancel_button}
+          type="button"
+          onClick={() => setActiveModal(EActiveModal.NONE)}>
           X
         </button>
       )}
