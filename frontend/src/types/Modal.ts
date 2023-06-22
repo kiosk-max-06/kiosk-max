@@ -1,6 +1,8 @@
-export interface IModalProps {
-  activeModal: TActiveModal;
-  setActiveModal: React.Dispatch<React.SetStateAction<TActiveModal>>;
+import EActiveModal from "../constants/EActiveModal.ts";
+
+interface IModalProps {
+  activeModal: EActiveModal;
+  setActiveModal: React.Dispatch<React.SetStateAction<EActiveModal>>;
 }
 
-export type TActiveModal = "cash" | "menuOptions" | "payment" | "none";
+export default IModalProps;
