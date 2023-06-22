@@ -14,12 +14,20 @@ function CashForm() {
         name="amount"
         id="receivedAmount"
         value={receivedAmount}
+        onChange={(e) => {
+          setReceivedAmount(Number(e.target.value));
+        }}
       />
       <div>
         {cashOptions.map((cashOption) => (
           <button
+            key={cashOption}
             type="button"
-            onClick={() => setReceivedAmount(receivedAmount + cashOption)}>
+            onClick={(e) => {
+              const button = e.target as HTMLElement;
+              const input = button.closest("input")!;
+              input.value = (receivedAmount + cashOption).toString();
+            }}>
             {cashOption}원
           </button>
         ))}
