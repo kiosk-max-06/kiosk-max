@@ -1,4 +1,5 @@
 {
+  "singleQuote": false,
   "quoteProps": "consistent",
   "printWidth": 80,
   "tabWidth": 2,
@@ -7,5 +8,6 @@
   "arrowParens": "always",
   "trailingComma": "es5",
   "semi": true,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "eslintIntegration": false
 }
