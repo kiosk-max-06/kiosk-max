@@ -24,7 +24,7 @@ public class MenuRepository {
 			CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
 			categoryResponseDto.setId(rs.getInt("id"));
 			categoryResponseDto.setName(rs.getString("name"));
-			categoryResponseDto.setMenuResponseDtos(findAllMenuByCategoryId(rs.getInt("id")));
+			categoryResponseDto.setMenus(findAllMenuByCategoryId(rs.getInt("id")));
 
 			return categoryResponseDto;
 		};
