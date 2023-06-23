@@ -10,11 +10,11 @@ public class Order {
 	private int totalAmount;
 	private Integer orderStatusId;
 	private int receivedAmount;
-	private int change;
+	private int changes;
 	private Integer paymentId;
 
-	public Order(int totalAmount, int orderStatusId, int receivedAmount, int change, int paymentId) {
-		this(null, totalAmount, orderStatusId, receivedAmount, change, paymentId);
+	public Order(int totalAmount, int orderStatusId, int receivedAmount, int changes, int paymentId) {
+		this(null, totalAmount, orderStatusId, receivedAmount, changes, paymentId);
 	}
 
 }

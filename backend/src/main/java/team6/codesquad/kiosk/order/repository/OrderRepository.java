@@ -17,12 +17,12 @@ public class OrderRepository {
 	public OrderRepository(DataSource dataSource) {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.jdbcInsert = new SimpleJdbcInsert(dataSource)
-			.withTableName("order")
+			.withTableName("orders")
+			.usingColumns("total_amount", "received_amount", "changes", "payment_id", "order_status_id")
 			.usingGeneratedKeyColumns("id");
 	}
 
 	public int save(Order order) {
-
 		return jdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(order)).intValue();
 	}
 }

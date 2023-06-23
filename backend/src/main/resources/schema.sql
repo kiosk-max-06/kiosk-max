@@ -48,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`payment` (
 -- -----------------------------------------------------
 -- Table `kiosk`.`order`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`order` (
-    `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `kiosk`.`orders` (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `total_amount` INT NOT NULL COMMENT '총 결제금액',
     `received_amount` INT NOT NULL COMMENT '지불금액',
-    `change` INT NOT NULL COMMENT '거스름돈',
+    `changes` INT NOT NULL COMMENT '거스름돈',
     `payment_id` INT NOT NULL,
     `order_status_id` INT NOT NULL,
     PRIMARY KEY (`id`),
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`order_menu_option` (
 -- -----------------------------------------------------
 -- Table `kiosk`.`option`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`option` (
+CREATE TABLE IF NOT EXISTS `kiosk`.`options` (
     `id` INT NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
