@@ -14,6 +14,6 @@ import lombok.Setter;
 public class CategoryResponseDto {
 	private int id;
 	private String name;
-	private List<MenuResponseDto> menuResponseDtos;
+	private List<MenuResponseDto> menus;
 
 }
