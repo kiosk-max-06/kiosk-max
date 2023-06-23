@@ -47,10 +47,29 @@ ENGINE = InnoDB;
 -- Table `kiosk`.`payment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kiosk`.`payment` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+    `id` INT NOT NULL,
+    `name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `kiosk`.`order`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kiosk`.`orders` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `total_amount` INT NOT NULL COMMENT '총 결제금액',
+    `received_amount` INT NOT NULL COMMENT '지불금액',
+    `changes` INT NOT NULL COMMENT '거스름돈',
+    `payment_id` INT NOT NULL,
+    `order_status_id` INT NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `fk_order_payment1_idx` (`payment_id` ASC) VISIBLE,
+    INDEX `fk_order_status1_idx` (`order_status_id` ASC) VISIBLE
+)
+    ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -116,11 +135,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `kiosk`.`option`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`option` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `kiosk`.`options` (
+    `id` INT NOT NULL,
+    `name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
