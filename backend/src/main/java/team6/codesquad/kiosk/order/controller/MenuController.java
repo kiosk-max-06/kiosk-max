@@ -1,10 +1,12 @@
 package team6.codesquad.kiosk.order.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import team6.codesquad.kiosk.order.dto.response.CategoriesResponseDto;
+import team6.codesquad.kiosk.order.dto.response.CategoryResponseDto;
 import team6.codesquad.kiosk.order.service.MenuService;
 
 @RestController
@@ -12,8 +14,8 @@ import team6.codesquad.kiosk.order.service.MenuService;
 public class MenuController {
 	private final MenuService menuService;
 
-	@GetMapping("")
-	public CategoriesResponseDto getMenuList() {
-		return new CategoriesResponseDto(menuService.getCategories());
+	@GetMapping("/")
+	public List<CategoryResponseDto> getMenuList() {
+		return menuService.getCategories();
 	}
 }
