@@ -11,7 +11,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema kiosk
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `kiosk` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `kiosk` DEFAULT CHARACTER SET utf8mb4 ;
+
 USE `kiosk` ;
 
 -- -----------------------------------------------------
@@ -33,13 +34,9 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`menu` (
   `price` INT NOT NULL,
   `image` VARCHAR(512) NOT NULL,
   `category_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_menu_category_idx` (`category_id` ASC) VISIBLE,
-  CONSTRAINT `fk_menu_category`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `kiosk`.`category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+
+  PRIMARY KEY (`id`))
+
 ENGINE = InnoDB;
 
 
@@ -47,35 +44,7 @@ ENGINE = InnoDB;
 -- Table `kiosk`.`payment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kiosk`.`payment` (
-    `id` INT NOT NULL,
-    `name` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `kiosk`.`order`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`orders` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `total_amount` INT NOT NULL COMMENT '총 결제금액',
-    `received_amount` INT NOT NULL COMMENT '지불금액',
-    `changes` INT NOT NULL COMMENT '거스름돈',
-    `payment_id` INT NOT NULL,
-    `order_status_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_order_payment1_idx` (`payment_id` ASC) VISIBLE,
-    INDEX `fk_order_status1_idx` (`order_status_id` ASC) VISIBLE
-)
-    ENGINE = InnoDB;
-
-
-
--- -----------------------------------------------------
--- Table `kiosk`.`order_status`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`order_status` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -83,104 +52,73 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `kiosk`.`order`
+-- Table `kiosk`.`orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`order` (
+
+CREATE TABLE IF NOT EXISTS `kiosk`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `total_amount` INT NOT NULL COMMENT '총 결제금액',
   `received_amount` INT NOT NULL COMMENT '지불 금액',
-  `change` INT NOT NULL COMMENT '거스름돈',
+  `changes` INT NOT NULL COMMENT '거스름돈',
   `payment_id` INT NOT NULL,
-  `order_status_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_order_payment_idx` (`payment_id` ASC) VISIBLE,
-  INDEX `fk_order_order_status_idx` (`order_status_id` ASC) VISIBLE,
-  CONSTRAINT `fk_order_payment`
-    FOREIGN KEY (`payment_id`)
-    REFERENCES `kiosk`.`payment` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_order_status`
-    FOREIGN KEY (`order_status_id`)
-    REFERENCES `kiosk`.`order_status` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `kiosk`.`order_status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `kiosk`.`order`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `kiosk`.`order_menu` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `count` INT NOT NULL,
+  `menu_id` INT NOT NULL,
+  `order_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`order_menu`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`order_menu` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `count` INT NOT NULL,
-  `menu_id` INT NOT NULL,
-  `order_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_order_menu_menu_idx` (`menu_id` ASC) VISIBLE,
-  INDEX `fk_order_menu_order_idx` (`order_id` ASC) VISIBLE,
-  CONSTRAINT `fk_order_menu_menu`
-    FOREIGN KEY (`menu_id`)
-    REFERENCES `kiosk`.`menu` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_menu_order`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `kiosk`.`order` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `kiosk`.`option`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kiosk`.`options` (
-    `id` INT NOT NULL,
-    `name` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `kiosk`.`order_menu_option`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kiosk`.`order_menu_option` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `option_id` INT NOT NULL,
   `order_menu_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_order_menu_option_option_idx` (`option_id` ASC) VISIBLE,
-  INDEX `fk_order_menu_option_order_menu_idx` (`order_menu_id` ASC) VISIBLE,
-  CONSTRAINT `fk_order_menu_option_option`
-    FOREIGN KEY (`option_id`)
-    REFERENCES `kiosk`.`option` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_menu_option_order_menu`
-    FOREIGN KEY (`order_menu_id`)
-    REFERENCES `kiosk`.`order_menu` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `kiosk`.`options`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kiosk`.`options` (
+
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`sales`
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `kiosk`.`sales` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `count` INT NOT NULL,
   `date` DATETIME NOT NULL,
   `menu_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_sales_menu_idx` (`menu_id` ASC) VISIBLE,
-  CONSTRAINT `fk_sales_menu`
-    FOREIGN KEY (`menu_id`)
-    REFERENCES `kiosk`.`menu` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
