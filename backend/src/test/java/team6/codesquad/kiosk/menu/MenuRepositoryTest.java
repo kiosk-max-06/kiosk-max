@@ -41,7 +41,7 @@ public class MenuRepositoryTest {
 	void findAll() {
 		menuRepository.findAll()
 			.forEach(categoryResponseDto -> {
-				assertThat(categoryResponseDto.getMenuResponseDtos()).isNotEmpty();
+				assertThat(categoryResponseDto.getMenus()).isNotEmpty();
 			});
 	}
 }
