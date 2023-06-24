@@ -16,6 +16,7 @@ public class MenuService {
 	private final MenuRepository menuRepository;
 
 	public List<CategoryResponseDto> getCategories() {
+		menuRepository.checkDailySales();
 		return menuRepository.findAll();
 	}
 
