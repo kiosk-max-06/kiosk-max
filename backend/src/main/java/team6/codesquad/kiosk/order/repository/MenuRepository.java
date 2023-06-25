@@ -109,14 +109,15 @@ public class MenuRepository {
 		return keys;
 	}
 
-	public void checkDailySales() {
+	public Boolean isExistDailySales() {
 		// 오늘 판매량이 존재하는지 확인하는 쿼리
 		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(?, '%y-%m-%d'))";
-		Boolean isExistDailySales = jdbcTemplate.queryForObject(sql, Boolean.class, LocalDateTime.now());
-		if (Boolean.FALSE.equals(isExistDailySales)) {
-			jdbcTemplate.query("select * from menu", menuRowMapper())
-				.forEach(menuResponseDto
-					-> createDailySales(menuResponseDto.getId()));  // 메뉴마다 당일판매량(sales)을 생성하는 쿼리를 날린다.
-		}
+		return jdbcTemplate.queryForObject(sql, Boolean.class, LocalDateTime.now());
+	}
+
+	public void fillCountZero() {
+		jdbcTemplate.query("select * from menu", menuRowMapper())
+			.forEach(menuResponseDto
+				-> createDailySales(menuResponseDto.getId()));  // 메뉴마다 당일판매량(sales)을 생성하는 쿼리를 날린다.
 	}
 }
