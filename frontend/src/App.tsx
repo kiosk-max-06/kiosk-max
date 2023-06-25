@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
 import Modal from "./components/Modal/Modal.tsx";
+import Cart from "./components/Cart/Cart.tsx";
 import { ICategories } from "./types/Tabs.ts";
 import EActiveModal from "./constants/EActiveModal.ts";
 import "./App.css";
@@ -9,6 +10,8 @@ function App() {
   const [activeModal, setActiveModal] = useState<EActiveModal>(
     EActiveModal.MENU_OPTIONS
   );
+
+  const [activeCart, setActiveCart] = useState<boolean>(true);
 
   const mockData: ICategories = [
     {
@@ -96,7 +99,7 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
-
+      <Cart {...{ activeCart, setActiveCart }} />
       {activeModal in EActiveModal && activeModal !== EActiveModal.NONE && (
         <>
           <article className="dimmed">
