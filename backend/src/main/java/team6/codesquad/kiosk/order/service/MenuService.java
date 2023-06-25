@@ -16,7 +16,9 @@ public class MenuService {
 	private final MenuRepository menuRepository;
 
 	public List<CategoryResponseDto> getCategories() {
-		menuRepository.checkDailySales();
+		if (!menuRepository.isExistDailySales()) {
+			menuRepository.fillCountZero();
+		}
 		return menuRepository.findAll();
 	}
 
