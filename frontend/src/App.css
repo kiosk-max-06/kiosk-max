@@ -6,6 +6,7 @@
   box-sizing: border-box;
   border: 3px dotted red;
   text-align: center;
+  overflow: hidden;
 }
 
 .App-logo {
