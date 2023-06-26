@@ -18,7 +18,6 @@ public class OrderRepository {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.jdbcInsert = new SimpleJdbcInsert(dataSource)
 			.withTableName("orders")
-			.usingColumns("total_amount", "received_amount", "changes", "payment_id", "order_status_id")
 			.usingGeneratedKeyColumns("id");
 	}
 
