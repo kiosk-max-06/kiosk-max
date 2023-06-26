@@ -8,23 +8,32 @@ function Cart({
   activeCart: boolean;
   setActiveCart: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [remTime, setRemTime] = useState(30);
+  const [remTime, setRemTime] = useState(5);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setRemTime((remTime) => remTime - 1);
+      if (remTime === 1) {
+        setActiveCart(false);
+      }
     }, 1000);
 
     return () => {
       clearInterval(intervalId);
-      if (remTime === 0) {
-        setActiveCart(false);
+      if (!activeCart) {
+        setRemTime(5);
       }
     };
-  }, [remTime, setRemTime, setActiveCart]);
+  }, [activeCart, remTime, setActiveCart]);
 
   return (
-    <article className={styles.cart} data-active={activeCart}>
+    <article
+      className={styles.cart}
+      id={styles.cart}
+      data-active={activeCart.toString()}>
+      <button type="button" onClick={() => setActiveCart(false)}>
+        {activeCart.toString()}
+      </button>
       <h2 className="blind">카트</h2>
       <form>
         <input
@@ -36,18 +45,6 @@ function Cart({
         <div className={styles.cart__inner}>
           <div className={styles.cart__left}>
             <ul className={styles.cart__ul}>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
-              <li className={styles.cart__li}>커피</li>
               <li className={styles.cart__li}>커피</li>
             </ul>
           </div>

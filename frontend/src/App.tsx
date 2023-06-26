@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState<EActiveModal>(
-    EActiveModal.MENU_OPTIONS
+    EActiveModal.NONE
   );
 
   const [activeCart, setActiveCart] = useState<boolean>(true);
@@ -99,6 +99,9 @@ function App() {
   return (
     <div className="App">
       <Tabs data={mockData} />
+      <button type="button" onClick={() => setActiveCart(true)}>
+        {activeCart.toString()}
+      </button>
       <Cart {...{ activeCart, setActiveCart }} />
       {activeModal in EActiveModal && activeModal !== EActiveModal.NONE && (
         <>

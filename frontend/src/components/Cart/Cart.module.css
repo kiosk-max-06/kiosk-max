@@ -4,9 +4,11 @@
   width: 100%;
   border: 1px solid black;
   transform: translateY(100%);
+  overflow: hidden;
+  transition: transform 300ms;
 }
 
-.cart[data-active="true"] {
+#cart[data-active="true"] {
   transform: translateY(0);
 }
 
