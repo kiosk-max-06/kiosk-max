@@ -18,13 +18,13 @@ public class SaleRepository {
 	}
 
 	public void update(Sales sales) {
-		String sql = "SELECT count FROM sales WHERE menu_id = :menuId AND DATE_FORMAT(:date, '%y-%m-%d')";
+		String sql = "SELECT count FROM sales WHERE menu_id = :menuId AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')";
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 			.addValue("menuId", sales.getMenuId())
 			.addValue("date", sales.getDate());
 		int count = jdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
 		count += sales.getCount();
-		String updateSql = "UPDATE sales SET count = :count WHERE menu_id = :menuId AND DATE_FORMAT(:date, '%y-%m-%d')";
+		String updateSql = "UPDATE sales SET count = :count WHERE menu_id = :menuId AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')";
 		SqlParameterSource updateNamedParameters = new MapSqlParameterSource()
 			.addValue("menuId", sales.getMenuId())
 			.addValue("date", sales.getDate())

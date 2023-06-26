@@ -18,6 +18,7 @@ import team6.codesquad.kiosk.order.repository.OrderMenuOptionRepository;
 import team6.codesquad.kiosk.order.repository.OrderMenuRepository;
 import team6.codesquad.kiosk.order.repository.OrderRepository;
 import team6.codesquad.kiosk.order.repository.PaymentRepository;
+import team6.codesquad.kiosk.order.repository.SaleRepository;
 
 @RequiredArgsConstructor
 @Transactional
@@ -30,6 +31,7 @@ public class OrderService {
 	private final MenuRepository menuRepository;
 	private final OrderMenuOptionRepository menuOptionRepository;
 	private final OptionRepository optionRepository;
+	private final SaleRepository saleRepository;
 
 	public void saveOrder(OrderRequestDto orderRequestDto) {
 		Order order = getOrder(orderRequestDto);
@@ -71,6 +73,6 @@ public class OrderService {
 
 	public void updateSales(int menuId, int count) {
 		Sales sales = new Sales(menuId, count);
-
+		saleRepository.update(sales);
 	}
 }
