@@ -17,7 +17,6 @@ public class OrderController {
 
 	@PostMapping("/order")
 	public ResponseEntity<Void> createOrder(@RequestBody OrderRequest orderRequest) {
-		//ResponseEntity<> 감싸서 내보내야 JSON형태로 내보내짐.
 		service.saveOrder(orderRequest);
 		return ResponseEntity.ok().build();
 	}

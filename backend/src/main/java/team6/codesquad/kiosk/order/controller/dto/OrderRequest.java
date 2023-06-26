@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class OrderRequest {
 
 	private List<MenuDto> menus;
-	private String paymentType; // 지불 방법
-	private int receivedAmount;  // 결제 한 금액
-	private int totalAmount; // 총 내야 할 금액
+	private String paymentType;
+	private int receivedAmount;
+	private int totalAmount;
 
 }
 
