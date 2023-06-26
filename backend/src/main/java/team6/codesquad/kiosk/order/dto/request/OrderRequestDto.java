@@ -1,4 +1,4 @@
-package team6.codesquad.kiosk.order.controller.dto;
+package team6.codesquad.kiosk.order.dto.request;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest {
+public class OrderRequestDto {
 
-	private List<MenuDto> menus;
+	private List<MenuRequestDto> menus;
 	private String paymentType;
 	private int receivedAmount;
 	private int totalAmount;
