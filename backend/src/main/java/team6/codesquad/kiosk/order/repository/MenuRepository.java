@@ -1,8 +1,6 @@
 package team6.codesquad.kiosk.order.repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,50 +74,19 @@ public class MenuRepository {
 	public List<MenuResponseDto> findAllMenuByCategoryId(int categoryId) {
 		String sql = "SELECT * FROM menu WHERE category_id = :category_id";
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("category_id", categoryId);
-		List<MenuResponseDto> menuResponseDtos = namedParameterJdbcTemplate.query(sql, sqlParameterSource,
+		return namedParameterJdbcTemplate.query(sql, sqlParameterSource,
 			menuRowMapper());
-		List<Integer> menuIds = menuResponseDtos.stream().map(MenuResponseDto::getId).toList();
-		return getMenuByMenuId(menuResponseDtos, sortedMenuIdByCount(menuIds));
 	}
 
-	private List<MenuResponseDto> getMenuByMenuId(List<MenuResponseDto> menuResponseDtos, List<Integer> menuIds) {
-		List<MenuResponseDto> newMenuResponseDtos = new ArrayList<>();
-		for (Integer menuId : menuIds) {
-			MenuResponseDto menu = menuResponseDtos.stream()
-				.filter(menuResponseDto -> menuResponseDto.getId() == menuId)
-				.findFirst().get();
-			newMenuResponseDtos.add(menu);
-		}
-		return newMenuResponseDtos;
-	}
-
-	private List<Integer> sortedMenuIdByCount(List<Integer> menuIds) {
+	public int getCountByMenuId(int menuId) {
 		String sql = "SELECT count(*) FROM sales WHERE menu_id = :menu_id AND DATE_FORMAT(:date, '%y-%m-%d')";
 		LocalDateTime date = LocalDateTime.now();
 
-		Map<Integer, Integer> map = new HashMap<>();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("menu_id", menuId);
+		paramMap.addValue("date", date);
 
-		for (Integer menuId : menuIds) {
-			MapSqlParameterSource paramMap = new MapSqlParameterSource();
-			paramMap.addValue("menu_id", menuId);
-			paramMap.addValue("date", date);
-
-			Integer count = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
-			map.put(menuId, count);
-		}
-
-		return sortHashMapByValueDescending(map);
-	}
-
-	public List<Integer> sortHashMapByValueDescending(Map<Integer, Integer> map) {
-		List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(map.entrySet());
-		entries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
-		List<Integer> keys = new ArrayList<>();
-		for (Map.Entry<Integer, Integer> entry : entries) {
-			keys.add(entry.getKey());
-		}
-		return keys;
+		return namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 	}
 
 	public Boolean isExistDailySales() {
@@ -129,13 +96,9 @@ public class MenuRepository {
 		return namedParameterJdbcTemplate.queryForObject(sql, sqlParameterSource, Boolean.class);
 	}
 
-	public void fillCountZero() {
+	public List<MenuResponseDto> findAllMenu() {
 		String sql = "SELECT * FROM menu";
-		List<MenuResponseDto> menuResponseDtos = namedParameterJdbcTemplate.query(sql, new HashMap<>(),
-			menuRowMapper());
-
-		for (MenuResponseDto menuResponseDto : menuResponseDtos) {
-			createDailySales(menuResponseDto.getId());
-		}
+		return namedParameterJdbcTemplate.query(sql, new HashMap<>(), menuRowMapper());
 	}
+
 }
