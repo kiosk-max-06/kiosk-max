@@ -82,9 +82,9 @@ public class MenuRepository {
 		String sql = "SELECT count(*) FROM sales WHERE menu_id = :menu_id AND DATE_FORMAT(:date, '%y-%m-%d')";
 		LocalDateTime date = LocalDateTime.now();
 
-		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-		paramMap.addValue("menu_id", menuId);
-		paramMap.addValue("date", date);
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+			.addValue("menu_id", menuId)
+			.addValue("date", date);
 
 		return namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 	}
