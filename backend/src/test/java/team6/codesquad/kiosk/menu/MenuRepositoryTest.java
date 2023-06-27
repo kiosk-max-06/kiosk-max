@@ -39,12 +39,12 @@ public class MenuRepositoryTest {
 			.isEqualToComparingFieldByField(menuResponseDto);
 	}
 
-	// @Test
-	// @DisplayName("모든 카테고리를 반환할 때, 메뉴가 포함되어있는지 확인")
-	// void findAll() {
-	// 	menuRepository.findAll()
-	// 		.forEach(categoryResponseDto -> {
-	// 			assertThat(categoryResponseDto.getMenuResponseDtos()).isNotEmpty();
-	// 		});
-	// }
+	@Test
+	@DisplayName("모든 카테고리를 반환할 때, 메뉴가 포함되어있는지 확인")
+	void findAll() {
+		menuRepository.findAll()
+			.forEach(categoryResponseDto -> {
+				assertThat(categoryResponseDto.getMenus()).isNotEmpty();
+			});
+	}
 }
