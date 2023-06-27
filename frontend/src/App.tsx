@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import Tabs from "./components/Tabs/Tabs.tsx";
-
 import Cart from "./components/Cart/Cart.tsx";
 
 import MenuAdditionForm from "./components/Modal/MenuOptionsForm.tsx";
@@ -27,7 +26,9 @@ function App() {
   const [menuOptions, setMenuOptions] = useState<IMenuOptions | undefined>();
   const [cart, setCart] = useState<ICart | undefined>();
   const [order, setOrder] = useState<IOrder | undefined>();
+
   const mockData: ICategories = getMockData();
+
   const ctrl: IController = {
     modal: {
       get: () => activeModal,
@@ -96,12 +97,14 @@ function getMockData(): ICategories {
         {
           name: "아메리카노",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
         {
           name: "콜드브루",
           price: 4500,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
       ],
     },
@@ -112,12 +115,14 @@ function getMockData(): ICategories {
         {
           name: "카페라떼",
           price: 5000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
         {
           name: "바닐라라떼",
           price: 5500,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
       ],
     },
@@ -128,12 +133,14 @@ function getMockData(): ICategories {
         {
           name: "녹차",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
         {
           name: "우롱차",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
       ],
     },
@@ -144,12 +151,14 @@ function getMockData(): ICategories {
         {
           name: "오렌지",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
         {
           name: "포도",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
       ],
     },
@@ -160,12 +169,14 @@ function getMockData(): ICategories {
         {
           name: "디카페인 박카스",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
         {
           name: "디카페인 아메리카노",
           price: 4000,
-          imgUrl: "#",
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
         },
       ],
     },

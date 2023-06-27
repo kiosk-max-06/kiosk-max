@@ -1,9 +1,21 @@
 #panel {
-  width: 100%;
+  height: 100%;
 }
 
-.panel_coffee {
+.panel[data-name="커피"] {
   background-color: lightcoral;
+}
+.panel[data-name="라떼"] {
+  background-color: goldenrod;
+}
+.panel[data-name="티"] {
+  background-color: lightgreen;
+}
+.panel[data-name="쥬스"] {
+  background-color: lightyellow;
+}
+.panel[data-name="디카페인"] {
+  background-color: lightblue;
 }
 
 .panel__inner {

@@ -8,11 +8,7 @@ function MenuItem({ data, ctrl }: IMenuItemProps) {
   return (
     <li className={styles.card}>
       <figure>
-        {/* <img src={imgUrl} alt="" /> */}
-        <img
-          src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
-          alt=""
-        />
+        <img src={imgUrl} alt="" />
         <figcaption className="blind">사진 대체텍스트</figcaption>
       </figure>
       <dl>
