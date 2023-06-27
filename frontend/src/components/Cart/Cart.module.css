@@ -50,6 +50,11 @@
   box-sizing: border-box;
 }
 
+
+.cart__li img {
+  width: 100%;
+}
+
 .cart__li:nth-child(n + 2) {
   margin-left: 1rem;
 }
