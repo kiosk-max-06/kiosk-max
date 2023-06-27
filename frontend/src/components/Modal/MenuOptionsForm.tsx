@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "./MenuOptionForm.module.css";
+import { IController, IMenuOptions } from "../../types/Modal.ts";
+import { EActiveModal, ESize, ETemperature } from "../../constants/Modal.ts";
 
-function MenuOptionForm() {
+function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
   const [count, setCount] = useState(1);
 
   function clickHandler(action: "increment" | "decrement") {
@@ -18,14 +20,34 @@ function MenuOptionForm() {
     }
   }
 
+  function formSubmitHandler(e: React.FormEvent): void {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const temp = Object.fromEntries(formData);
+    const menuOptions: IMenuOptions = {
+      size: temp.size as ESize,
+      temperature: temp.temperature as ETemperature,
+      count: Number(temp.count),
+    };
+    ctrl.menu.setOptions(menuOptions);
+    const menu = ctrl.menu.get();
+    if (menu) ctrl.cart.addMenu(menu);
+    ctrl.modal.close();
+  }
+
+  const menu = ctrl.menu.get();
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={formSubmitHandler}>
       <div className={styles.inner}>
         <div className={styles.left}>
-          <figure className={styles.form__img}>
-            <span>☕</span>
-            <figcaption className="blind">커피</figcaption>
-          </figure>
+          {menu && (
+            <figure className={styles.form__img}>
+              <img src={menu.data.imgUrl} alt="" />
+              <figcaption className="blind">커피</figcaption>
+            </figure>
+          )}
         </div>
         <div className={styles.right}>
           <fieldset className={styles.form__field}>
@@ -34,6 +56,7 @@ function MenuOptionForm() {
                 className="blind"
                 type="radio"
                 name="size"
+                value="large"
                 id="large"
                 required
               />
@@ -44,6 +67,7 @@ function MenuOptionForm() {
                 className="blind"
                 type="radio"
                 name="size"
+                value="small"
                 id="small"
                 required
               />
@@ -56,6 +80,7 @@ function MenuOptionForm() {
                 className="blind"
                 type="radio"
                 name="temperature"
+                value="hot"
                 id="hot"
                 required
               />
@@ -66,6 +91,7 @@ function MenuOptionForm() {
                 className="blind"
                 type="radio"
                 name="temperature"
+                value="ice"
                 id="ice"
                 required
               />
@@ -95,7 +121,6 @@ function MenuOptionForm() {
                   }
                 }}
                 required
-                disabled
               />
             </div>
             <button
@@ -114,4 +139,4 @@ function MenuOptionForm() {
   );
 }
 
-export default MenuOptionForm;
+export default MenuOptionsForm;

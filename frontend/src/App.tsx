@@ -1,19 +1,94 @@
 import React, { useState } from "react";
+
 import Tabs from "./components/Tabs/Tabs.tsx";
-import Modal from "./components/Modal/Modal.tsx";
+
 import Cart from "./components/Cart/Cart.tsx";
+
+import MenuAdditionForm from "./components/Modal/MenuOptionsForm.tsx";
 import { ICategories } from "./types/Tabs.ts";
-import EActiveModal from "./constants/EActiveModal.ts";
-import "./App.css";
+import { EActiveModal } from "./constants/Modal.ts";
+import {
+  ICart,
+  IController,
+  IMenu,
+  IMenuOptions,
+  IOrder,
+} from "./types/Modal.ts";
+import PaymentForm from "./components/Modal/PaymentForm.tsx";
+import CashForm from "./components/Modal/CashForm.tsx";
+
+import styled from "./App.module.css";
+import "./common.css";
 
 function App() {
-  const [activeModal, setActiveModal] = useState<EActiveModal>(
-    EActiveModal.NONE
+  const { NONE, MENU_OPTIONS, PAYMENT, CASH } = EActiveModal;
+  const [activeModal, setActiveModal] = useState<EActiveModal>();
+  const [selectedMenu, setSelectedMenu] = useState<IMenu | undefined>();
+  const [menuOptions, setMenuOptions] = useState<IMenuOptions | undefined>();
+  const [cart, setCart] = useState<ICart | undefined>();
+  const [order, setOrder] = useState<IOrder | undefined>();
+  const mockData: ICategories = getMockData();
+  const ctrl: IController = {
+    modal: {
+      get: () => activeModal,
+      close: () => setActiveModal(NONE),
+      view: (modal: EActiveModal) => setActiveModal(modal),
+    },
+    menu: {
+      get: () => selectedMenu,
+      select: (menu: IMenu) => setSelectedMenu(menu),
+      setOptions: (menuOptions: IMenuOptions) => setMenuOptions(menuOptions),
+    },
+    cart: {
+      get: () => cart,
+      clear: () => setCart(undefined),
+      addMenu: (menu: IMenu) =>
+        cart
+          ? setCart({ menuList: [...cart.menuList, menu] })
+          : setCart({ menuList: [menu] }),
+    },
+    order: {
+      get: () => order,
+      set: (order: IOrder) => setOrder(order),
+      request: () => {
+        if (!order) console.log("틀린요청");
+      },
+    },
+    cancel: () => {
+      setActiveModal(NONE);
+      setCart(undefined);
+      setSelectedMenu(undefined);
+      setMenuOptions(undefined);
+    },
+  };
+
+  return (
+    <div className={styled.app}>
+      <Tabs data={mockData} ctrl={ctrl} />
+      <Cart ctrl={ctrl} />
+      {activeModal && (
+        <article className="dimmed">
+          <h1 className="blind">배경을 어둡게</h1>
+        </article>
+      )}
+      {activeModal && (
+        <dialog open className={styled.modal}>
+          {activeModal !== CASH && (
+            <button type="button" onClick={() => ctrl.cancel()}>
+              X
+            </button>
+          )}
+          {activeModal === MENU_OPTIONS && <MenuAdditionForm ctrl={ctrl} />}
+          {activeModal === PAYMENT && <PaymentForm ctrl={ctrl} />}
+          {activeModal === CASH && <CashForm ctrl={ctrl} />}
+        </dialog>
+      )}
+    </div>
   );
+}
 
-  const [activeCart, setActiveCart] = useState<boolean>(true);
-
-  const mockData: ICategories = [
+function getMockData(): ICategories {
+  return [
     {
       id: 1,
       name: "커피",
@@ -95,25 +170,6 @@ function App() {
       ],
     },
   ];
-
-  return (
-    <div className="App">
-      <Tabs data={mockData} />
-      <button type="button" onClick={() => setActiveCart(true)}>
-        {activeCart.toString()}
-      </button>
-      <Cart {...{ activeCart, setActiveCart }} />
-      {activeModal in EActiveModal && activeModal !== EActiveModal.NONE && (
-        <>
-          <article className="dimmed">
-            <h1 className="blind">배경을 어둡게</h1>
-          </article>
-
-          <Modal {...{ activeModal, setActiveModal }} />
-        </>
-      )}
-    </div>
-  );
 }
 
 export default App;

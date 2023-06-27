@@ -1,8 +1,44 @@
-.menu_item {
+.card {
   width: calc(50% - 25px);
   display: inline-flex;
   flex-direction: column;
   background-color: white;
   border: 1px solid black;
   box-sizing: border-box;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card dl {
+  padding-left: 3rem;
+}
+
+.card dd {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.card dd::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 3rem;
+  display: block;
+  background-color: red;
+}
+
+.card input {
+  position: absolute;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  &:hover {
+    background-color: rgba(80, 80, 80, 0.4);
+    mix-blend-mode: darken;
+  }
 }
