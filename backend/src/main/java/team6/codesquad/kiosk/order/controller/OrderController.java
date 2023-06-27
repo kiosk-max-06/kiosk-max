@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import team6.codesquad.kiosk.order.dto.request.OrderRequestDto;
+import team6.codesquad.kiosk.order.dto.response.OrderResponseDto;
 import team6.codesquad.kiosk.order.service.OrderService;
 
 @RequiredArgsConstructor
@@ -16,8 +17,7 @@ public class OrderController {
 	private final OrderService service;
 
 	@PostMapping("/order")
-	public ResponseEntity<Void> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
-		service.saveOrder(orderRequestDto);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
+		return ResponseEntity.ok().body(service.saveOrder(orderRequestDto));
 	}
 }

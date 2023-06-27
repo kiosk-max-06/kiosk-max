@@ -12,6 +12,7 @@ import team6.codesquad.kiosk.order.domain.OrderMenuOption;
 import team6.codesquad.kiosk.order.domain.Sales;
 import team6.codesquad.kiosk.order.dto.request.MenuRequestDto;
 import team6.codesquad.kiosk.order.dto.request.OrderRequestDto;
+import team6.codesquad.kiosk.order.dto.response.OrderResponseDto;
 import team6.codesquad.kiosk.order.repository.MenuRepository;
 import team6.codesquad.kiosk.order.repository.OptionRepository;
 import team6.codesquad.kiosk.order.repository.OrderMenuOptionRepository;
@@ -33,15 +34,18 @@ public class OrderService {
 	private final OptionRepository optionRepository;
 	private final SaleRepository saleRepository;
 
-	public void saveOrder(OrderRequestDto orderRequestDto) {
+	public OrderResponseDto saveOrder(OrderRequestDto orderRequestDto) {
 		Order order = getOrder(orderRequestDto);
 
 		int orderId = orderRepository.save(order);
 		List<MenuRequestDto> menus = orderRequestDto.getMenus();
+		OrderResponseDto response = new OrderResponseDto(orderId, menus, orderRequestDto.getPaymentType()
+			, orderRequestDto.getTotalAmount(), orderRequestDto.getReceivedAmount());
 		for (MenuRequestDto menu : menus) {
 			int orderMenuId = saveOrderMenu(orderId, menu);
 			saveOrderMenuOption(orderMenuId, menu);
 		}
+		return response;
 	}
 
 	private Order getOrder(OrderRequestDto orderRequestDto) {
