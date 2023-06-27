@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./MenuOptionForm.module.css";
 import { IController, IMenuOptions } from "../../types/Modal.ts";
-import { EActiveModal, ESize, ETemperature } from "../../constants/Modal.ts";
+import { ESize, ETemperature } from "../../constants/Modal.ts";
 
 function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
   const [count, setCount] = useState(1);

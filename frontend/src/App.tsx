@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Tabs from "./components/Tabs/Tabs.tsx";
 import Cart from "./components/Cart/Cart.tsx";
 
-import MenuAdditionForm from "./components/Modal/MenuOptionsForm.tsx";
+import MenuOptionsForm from "./components/Modal/MenuOptionsForm.tsx";
 import { ICategories } from "./types/Tabs.ts";
 import { EActiveModal } from "./constants/Modal.ts";
 import {
@@ -79,7 +79,7 @@ function App() {
               X
             </button>
           )}
-          {activeModal === MENU_OPTIONS && <MenuAdditionForm ctrl={ctrl} />}
+          {activeModal === MENU_OPTIONS && <MenuOptionsForm ctrl={ctrl} />}
           {activeModal === PAYMENT && <PaymentForm ctrl={ctrl} />}
           {activeModal === CASH && <CashForm ctrl={ctrl} />}
         </dialog>

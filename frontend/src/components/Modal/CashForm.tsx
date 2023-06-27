@@ -24,15 +24,13 @@ function CashForm({ ctrl }: IFormProps) {
         type="number"
         name="amount"
         id="receivedAmount"
-        value={receivedAmount}
+        defaultValue={receivedAmount}
       />
       {cashOptions.map((cashOption) => (
         <button
           key={cashOption}
           type="button"
-          onClick={() => {
-            setReceivedAmount(receivedAmount + cashOption);
-          }}>
+          onClick={() => setReceivedAmount(receivedAmount + cashOption)}>
           {cashOption}원
         </button>
       ))}
