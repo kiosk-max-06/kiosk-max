@@ -89,6 +89,7 @@ public class MenuRepository {
 		return namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 	}
 
+
 	public Boolean isExistDailySales() {
 		// 오늘 판매량이 존재하는지 확인하는 쿼리
 		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(:current_date, '%Y-%m-%d'))";
