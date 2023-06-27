@@ -2,8 +2,6 @@ package team6.codesquad.kiosk.order.repository;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,9 +17,9 @@ public class MenuRepository {
 	private final JdbcTemplate jdbcTemplate;
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	public MenuRepository(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	public MenuRepository(JdbcTemplate template, NamedParameterJdbcTemplate parameterJdbcTemplate) {
+		jdbcTemplate = template;
+		namedParameterJdbcTemplate = parameterJdbcTemplate;
 	}
 
 	private RowMapper<CategoryResponseDto> categoryRowMapper() {
