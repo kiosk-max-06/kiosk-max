@@ -4,9 +4,9 @@
   margin: auto;
   position: relative;
   box-sizing: border-box;
-  border: 3px dotted red;
   text-align: center;
   overflow: hidden;
+  background-color: white;
 }
 
 .dimmed {

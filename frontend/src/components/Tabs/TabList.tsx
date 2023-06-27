@@ -11,7 +11,7 @@ function TabList({
     <nav className={styles.tab_list}>
       <ul className={styles.tab_list__wrapper}>
         {categoryNames.map((name, index) => (
-          <li className={styles.tab_list__li} key={name} data-index={index}>
+          <li className={styles.tab_list__li} key={name} data-name={name}>
             <button
               type="button"
               className={styles.tab_list__button}

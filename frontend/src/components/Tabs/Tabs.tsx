@@ -15,7 +15,11 @@ function Tabs({ data, ctrl }: ITabsProps) {
   return (
     <div className={styles.tabs}>
       <TabList {...{ categoryNames, activeTabIdx, setActiveTabIdx }} />
-      <Panel menuList={data[activeTabIdx].menuList} ctrl={ctrl} />
+      <Panel
+        menuList={data[activeTabIdx].menuList}
+        categoryName={data[activeTabIdx].name}
+        ctrl={ctrl}
+      />
     </div>
   );
 }

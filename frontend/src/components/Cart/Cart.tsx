@@ -39,49 +39,47 @@ function Cart({ ctrl }: { ctrl: IController }) {
       id={styles.cart}
       data-active={cart ? "true" : "false"}>
       <h2 className="blind">카트</h2>
-      {cart && (
-        <form onSubmit={formSubmitHandler}>
-          {cart && (
-            <input
-              type="hidden"
-              id="menuList"
-              name="menuList"
-              value={JSON.stringify(cart.menuList)}
-            />
-          )}
+      <form onSubmit={formSubmitHandler}>
+        {cart && (
+          <input
+            type="hidden"
+            id="menuList"
+            name="menuList"
+            value={JSON.stringify(cart.menuList)}
+          />
+        )}
 
-          <div className={styles.cart__inner}>
-            <div className={styles.cart__left}>
-              {cart && (
-                <ul className={styles.cart__ul}>
-                  {cart.menuList.map((menu, i) => {
-                    const key = Symbol(i);
-                    const { data } = menu;
-                    const { name, price, imgUrl } = data;
-                    return (
-                      <li key={key.toString()} className={styles.cart__li}>
-                        name
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-            <div className={styles.cart__right}>
-              <button
-                className={styles.cart__button}
-                type="button"
-                onClick={() => ctrl.cancel()}>
-                전체취소
-              </button>
-              <button className={styles.cart__button} type="submit">
-                결제하기
-              </button>
-              <p className="timer">{remTime}초 남음</p>
-            </div>
+        <div className={styles.cart__inner}>
+          <div className={styles.cart__left}>
+            {cart && (
+              <ul className={styles.cart__ul}>
+                {cart.menuList.map((menu, i) => {
+                  const key = Symbol(i);
+                  const { data } = menu;
+                  const { name, price, imgUrl } = data;
+                  return (
+                    <li key={key.toString()} className={styles.cart__li}>
+                      <img src={imgUrl} alt="" />
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
-        </form>
-      )}
+          <div className={styles.cart__right}>
+            <button
+              className={styles.cart__button}
+              type="button"
+              onClick={() => ctrl.cancel()}>
+              전체취소
+            </button>
+            <button className={styles.cart__button} type="submit">
+              결제하기
+            </button>
+            <p className="timer">{remTime}초 남음</p>
+          </div>
+        </div>
+      </form>
     </article>
   );
 }

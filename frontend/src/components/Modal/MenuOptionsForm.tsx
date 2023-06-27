@@ -60,7 +60,10 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
                 id="large"
                 required
               />
-              큰거
+              <article className={styles.bg}>
+                <h3 className="blind">버튼배경</h3>
+              </article>
+              <span>큰거</span>
             </label>
             <label className={styles.form__size_checker} htmlFor="small">
               <input
@@ -71,7 +74,10 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
                 id="small"
                 required
               />
-              작은거
+              <article className={styles.bg}>
+                <h3 className="blind">버튼배경</h3>
+              </article>
+              <span>작은거</span>
             </label>
           </fieldset>
           <fieldset className={styles.form__field}>
@@ -84,7 +90,10 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
                 id="hot"
                 required
               />
-              뜨거운 것
+              <article className={styles.bg}>
+                <h3 className="blind">버튼배경</h3>
+              </article>
+              <span> 뜨거운 것</span>
             </label>
             <label className={styles.form__temperature_checker} htmlFor="ice">
               <input
@@ -95,7 +104,10 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
                 id="ice"
                 required
               />
-              차가운 것
+              <article className={styles.bg}>
+                <h3 className="blind">버튼배경</h3>
+              </article>
+              <span>차가운 것</span>
             </label>
           </fieldset>
           <fieldset className={styles.form__field} id={styles.count_field}>
