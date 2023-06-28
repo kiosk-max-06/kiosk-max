@@ -19,7 +19,9 @@ public class OrderController {
 
 	@Operation(summary = "모든 카테고리 및 메뉴", description = "사용자에게 모든 카테고리 및 메뉴를 알려준다.")
 	@PostMapping("/order")
+
 	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
 		return ResponseEntity.ok().body(service.saveOrder(orderRequestDto));
+
 	}
 }

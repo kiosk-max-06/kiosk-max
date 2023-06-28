@@ -34,17 +34,21 @@ public class OrderService {
 	private final OptionRepository optionRepository;
 	private final SaleRepository saleRepository;
 
+
 	public OrderResponseDto saveOrder(OrderRequestDto orderRequestDto) {
 		Order order = getOrder(orderRequestDto);
 
 		int orderId = orderRepository.save(order);
 		List<MenuRequestDto> menus = orderRequestDto.getMenus();
+
 		OrderResponseDto response = new OrderResponseDto(orderId, menus, orderRequestDto.getPaymentType()
 			, orderRequestDto.getTotalAmount(), orderRequestDto.getReceivedAmount());
+
 		for (MenuRequestDto menu : menus) {
 			int orderMenuId = saveOrderMenu(orderId, menu);
 			saveOrderMenuOption(orderMenuId, menu);
 		}
+
 		return response;
 	}
 
