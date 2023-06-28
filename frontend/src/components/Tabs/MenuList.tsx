@@ -1,16 +1,22 @@
 import React from "react";
-import { IMenuListProps } from "../../types/Tabs.ts";
 import MenuItem from "./MenuItem.tsx";
+import { ActiveModalState, MenuItem as MenuItemType } from "../../App.tsx";
 import styles from "./MenuList.module.css";
 
-function MenuList({ menuList, ctrl }: IMenuListProps) {
+type MenuListProps = {
+  menus: MenuItemType[];
+  setActiveModal: (activeModalState: ActiveModalState) => void;
+};
+
+function MenuList({ menus, setActiveModal }: MenuListProps) {
   return (
     <ul className={styles.menu_list}>
-      {menuList.map((props, i) => {
+      {menus?.map((menuData, i) => {
         const key = Symbol(i).toString();
-        return <MenuItem key={key} data={props} ctrl={ctrl} />;
+        return <MenuItem {...{ key, menuData, setActiveModal }} />;
       })}
     </ul>
   );
 }
+
 export default MenuList;

@@ -1,21 +1,21 @@
-export enum EActiveModal {
+export enum ActiveModal {
   NONE,
   MENU_OPTIONS,
   PAYMENT,
   CASH,
 }
 
-export enum EPaymentType {
+export enum Payment {
   CREDIT = "credit",
   CASH = "cash",
 }
 
-export enum ESize {
+export enum Size {
   LARGE = "large",
   SMALL = "small",
 }
 
-export enum ETemperature {
+export enum Temperature {
   HOT = "hot",
   ICE = "ice",
 }

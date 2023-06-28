@@ -1,14 +1,27 @@
 import React from "react";
-import { IMenuItemProps } from "../../types/Tabs.ts";
+import { ActiveModal } from "../../types/contants.ts";
+import { ActiveModalState, MenuItem as MenuItemType } from "../../App.tsx";
 import styles from "./MenuItem.module.css";
-import { EActiveModal } from "../../constants/Modal.ts";
 
-function MenuItem({ data, ctrl }: IMenuItemProps) {
-  const { name, price, imgUrl } = data;
+type MenuItemProps = {
+  menuData: MenuItemType;
+  setActiveModal: (activeModalState: ActiveModalState) => void;
+};
+
+function MenuItem({ menuData, setActiveModal }: MenuItemProps) {
+  const { name, price, image } = menuData;
+
+  function openMenuOptionsModal() {
+    setActiveModal({
+      name: ActiveModal.MENU_OPTIONS,
+      content: menuData,
+    });
+  }
+
   return (
     <li className={styles.card}>
       <figure>
-        <img src={imgUrl} alt="" />
+        <img src={image} alt="" />
         <figcaption className="blind">사진 대체텍스트</figcaption>
       </figure>
       <dl>
@@ -21,13 +34,7 @@ function MenuItem({ data, ctrl }: IMenuItemProps) {
           <em>원</em>
         </dd>
       </dl>
-      <input
-        type="button"
-        onClick={(e) => {
-          ctrl.menu.select({ data });
-          ctrl.modal.view(EActiveModal.MENU_OPTIONS);
-        }}
-      />
+      <input type="button" onClick={openMenuOptionsModal} />
     </li>
   );
 }

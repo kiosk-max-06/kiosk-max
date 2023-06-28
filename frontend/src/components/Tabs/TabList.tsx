@@ -1,12 +1,17 @@
 import React from "react";
-import { ITabListProps } from "../../types/Tabs.ts";
 import styles from "./TabList.module.css";
+
+type TabListProps = {
+  categoryNames: string[];
+  activeCategoryIndex: number;
+  setActiveCategoryIndex: (newIndex: number) => void;
+};
 
 function TabList({
   categoryNames,
-  activeTabIdx,
-  setActiveTabIdx,
-}: ITabListProps) {
+  activeCategoryIndex,
+  setActiveCategoryIndex,
+}: TabListProps) {
   return (
     <nav className={styles.tab_list}>
       <ul>
@@ -14,9 +19,9 @@ function TabList({
           <li key={name} data-name={name}>
             <button
               type="button"
-              data-active={index === activeTabIdx}
+              data-active={index === activeCategoryIndex}
               onClick={() => {
-                setActiveTabIdx(index);
+                setActiveCategoryIndex(index);
               }}>
               {name}
             </button>

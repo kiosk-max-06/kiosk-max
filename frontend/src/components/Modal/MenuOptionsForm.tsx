@@ -1,51 +1,64 @@
 import React, { useState } from "react";
 import styles from "./MenuOptionForm.module.css";
-import { IController, IMenuOptions } from "../../types/Modal.ts";
-import { ESize, ETemperature } from "../../constants/Modal.ts";
+import { ActiveModal, Size, Temperature } from "../../types/contants.ts";
+import { MenuItem, CartItemData, ActiveModalState } from "../../App.tsx";
 
-function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
+type MenuOptionsFormProps = {
+  menuItem: MenuItem;
+  cart: CartItemData[];
+  setCart: (cart: CartItemData[]) => void;
+  setActiveModal: (activeModalState: ActiveModalState) => void;
+};
+
+function MenuOptionsForm({
+  menuItem,
+  cart,
+  setCart,
+  setActiveModal,
+}: MenuOptionsFormProps) {
   const [count, setCount] = useState(1);
 
-  function clickHandler(action: "increment" | "decrement") {
-    if (action === "increment") {
-      const nextCount = count + 1;
-      if (nextCount < 100) {
-        setCount(nextCount);
-      }
-    } else if (action === "decrement") {
-      const nextCount = count - 1;
-      if (nextCount > 0) {
-        setCount(nextCount);
-      }
+  function countClickHandler(action: "increment" | "decrement") {
+    let nextCount = count;
+
+    if (action === "increment" && nextCount < 100) {
+      nextCount += 1;
+    } else if (action === "decrement" && nextCount > 0) {
+      nextCount -= 1;
     }
+
+    setCount(nextCount);
   }
 
-  function formSubmitHandler(e: React.FormEvent): void {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
+  function addNewCartItem(evt: React.FormEvent): void {
+    evt.preventDefault();
+
+    const form = evt.target as HTMLFormElement;
     const formData = new FormData(form);
-    const temp = Object.fromEntries(formData);
-    const menuOptions: IMenuOptions = {
-      size: temp.size as ESize,
-      temperature: temp.temperature as ETemperature,
-      count: Number(temp.count),
+    const formEntries = Object.fromEntries(formData);
+    const { size, temperature } = formEntries as {
+      size: Size;
+      temperature: Temperature;
     };
-    ctrl.menu.setOptions(menuOptions);
-    const menu = ctrl.menu.get();
-    if (menu) ctrl.cart.addMenu(menu);
-    ctrl.modal.close();
-  }
 
-  const menu = ctrl.menu.get();
+    const newCartItemData: CartItemData = {
+      name: menuItem.name,
+      count,
+      options: [size, temperature],
+      price: menuItem.price,
+      image: menuItem.image,
+    };
+
+    setCart([...cart, newCartItemData]);
+    setActiveModal({ name: ActiveModal.NONE });
+  }
 
   return (
-    <form className={styles.form} onSubmit={formSubmitHandler}>
-      {menu && (
-        <figure>
-          <img src={menu.data.imgUrl} alt="" />
-          <figcaption className="blind">커피</figcaption>
-        </figure>
-      )}
+    <form className={styles.form} onSubmit={addNewCartItem}>
+      <figure>
+        <img src={menuItem.image} alt="" />
+        <figcaption className="blind">{menuItem.name}</figcaption>
+      </figure>
       <div className={styles.info}>
         <fieldset>
           <label htmlFor="small">
@@ -103,7 +116,7 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
           <button
             className={styles.count_button}
             type="button"
-            onClick={() => clickHandler("decrement")}>
+            onClick={() => countClickHandler("decrement")}>
             -
           </button>
           <input
@@ -113,19 +126,13 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
             id="count"
             max="99"
             min="1"
-            value={count}
-            onInput={(e) => {
-              const input = e.target as HTMLInputElement;
-              if (input.value && input.value !== "0") {
-                setCount(Number(input.value));
-              }
-            }}
+            defaultValue={count}
             required
           />
           <button
             className={styles.count_button}
             type="button"
-            onClick={() => clickHandler("increment")}>
+            onClick={() => countClickHandler("increment")}>
             +
           </button>
         </fieldset>

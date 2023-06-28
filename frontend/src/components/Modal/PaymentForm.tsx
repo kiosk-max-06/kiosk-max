@@ -1,37 +1,62 @@
-import React, { useState, FormEvent } from "react";
-import { IFormProps } from "../../types/Modal.ts";
-import { EActiveModal, EPaymentType } from "../../constants/Modal.ts";
+import React, { FormEvent } from "react";
+import { ActiveModal } from "../../types/contants.ts";
+import { CartItemData, ActiveModalState } from "../../App.tsx";
+import { sendOrderRequest } from "../../api/index.ts";
+import { calcCartTotalAmount } from "../../utils/index.ts";
 
-function PaymentForm({ ctrl }: IFormProps) {
-  const [payment, setPayment] = useState<EPaymentType | undefined>();
+export type PaymentDetails = {
+  paymentType: "card" | "cash";
+  totalAmount: number;
+  receivedAmount?: number;
+};
 
-  function formSubmitHandler(e: FormEvent) {
+type PaymentFormProps = {
+  cart: CartItemData[];
+  setCart: (cart: CartItemData[]) => void;
+  setActiveModal: (activeModalState: ActiveModalState) => void;
+  setIsLoading: (isLoading: boolean) => void;
+};
+
+function PaymentForm({
+  cart,
+  setCart,
+  setActiveModal,
+  setIsLoading,
+}: PaymentFormProps) {
+  async function payByCard(e: FormEvent) {
     e.preventDefault();
-    const order = ctrl.order.get();
-    order && ctrl.order.set({ ...order, payment });
-    if (payment === EPaymentType.CASH) {
-      ctrl.modal.view(EActiveModal.CASH);
-      return;
-    }
-    ctrl.order.request();
+
+    setIsLoading(true);
+
+    const paymentDetails: PaymentDetails = {
+      paymentType: "card",
+      totalAmount: calcCartTotalAmount(cart),
+    };
+    const orderResponse = await sendOrderRequest(paymentDetails, cart);
+    console.log(orderResponse);
+
+    setActiveModal({ name: ActiveModal.NONE });
+    setCart([]);
+    setIsLoading(false);
+
+    // TODO: display receipt using `orderResponse`
   }
-  function buttonClickHandler(e: FormEvent) {
-    const button = e.target as HTMLButtonElement;
-    const payment = button.value as EPaymentType;
-    setPayment(payment);
+
+  function openCashFormModal() {
+    setActiveModal({ name: ActiveModal.CASH });
   }
 
   return (
-    <form onSubmit={formSubmitHandler}>
+    <form onSubmit={payByCard}>
       <div className="row">
         <span>💳</span>
-        <button type="submit" value="credit" onClick={buttonClickHandler}>
+        <button type="submit" value="credit">
           카드결제
         </button>
       </div>
       <div className="row">
         <span>💵</span>
-        <button type="submit" value="cash" onClick={buttonClickHandler}>
+        <button type="button" value="cash" onClick={openCashFormModal}>
           현금결제
         </button>
       </div>

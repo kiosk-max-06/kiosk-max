@@ -1,24 +1,56 @@
 import React, { FormEvent, useState } from "react";
-import { IFormProps } from "../../types/Modal.ts";
+import { CartItemData, ActiveModalState } from "../../App.tsx";
+import { sendOrderRequest } from "../../api/index.ts";
+import { PaymentDetails } from "./PaymentForm.tsx";
+import { ActiveModal } from "../../types/contants.ts";
+import { calcCartTotalAmount } from "../../utils/index.ts";
 
-const totalAmount = 10000;
 const cashOptions = [500, 1000, 5000, 10000];
 
-function CashForm({ ctrl }: IFormProps) {
+type CashFormProps = {
+  cart: CartItemData[];
+  setCart: (cart: CartItemData[]) => void;
+  setActiveModal: (activeModalState: ActiveModalState) => void;
+  setIsLoading: (isLoading: boolean) => void;
+};
+
+function CashForm({
+  cart,
+  setCart,
+  setActiveModal,
+  setIsLoading,
+}: CashFormProps) {
   const [receivedAmount, setReceivedAmount] = useState<number>(0);
 
-  function submitHandler(e: FormEvent) {
+  async function payByCash(e: FormEvent) {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const { amount } = Object.fromEntries(formData);
-    const order = ctrl.order.get();
-    order && ctrl.order.set({ ...order, amount: Number(amount) });
-    ctrl.order.request();
+
+    const totalAmount = calcCartTotalAmount(cart);
+
+    if (receivedAmount < totalAmount) {
+      alert(`${totalAmount - receivedAmount}원이 부족합니다.`);
+      return;
+    }
+
+    setIsLoading(true);
+
+    const paymentDetails: PaymentDetails = {
+      paymentType: "cash",
+      totalAmount,
+      receivedAmount,
+    };
+    const orderResponse = await sendOrderRequest(paymentDetails, cart);
+    console.log(orderResponse);
+
+    setActiveModal({ name: ActiveModal.NONE });
+    setCart([]);
+    setIsLoading(false);
+
+    // TODO: display receipt using `orderResponse`
   }
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={payByCash}>
       <input
         className="blind"
         type="number"
@@ -36,7 +68,7 @@ function CashForm({ ctrl }: IFormProps) {
       ))}
       <dl>
         <dt>주문금액:</dt>
-        <dd>{totalAmount}</dd>
+        <dd>{calcCartTotalAmount(cart)}</dd>
 
         <dt>투입금액:</dt>
         <dd>
