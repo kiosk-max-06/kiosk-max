@@ -1,7 +1,6 @@
 package team6.codesquad.kiosk.order.repository;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -68,7 +67,7 @@ public class MenuRepository {
 	public List<CategoryResponseDto> findAll() {
 		// sales 테이블에 count 값으로 정렬 된 menu들
 		String sql = "SELECT * FROM category";
-		return namedParameterJdbcTemplate.query(sql, new HashMap<>(), categoryRowMapper());
+		return namedParameterJdbcTemplate.query(sql, categoryRowMapper());
 	}
 
 	public List<MenuResponseDto> findAllMenuByCategoryId(int categoryId) {
@@ -79,7 +78,7 @@ public class MenuRepository {
 	}
 
 	public int getCountByMenuId(int menuId) {
-		String sql = "SELECT count(*) FROM sales WHERE menu_id = :menu_id AND DATE_FORMAT(:date, '%y-%m-%d')";
+		String sql = "SELECT count FROM sales WHERE menu_id = :menu_id AND DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(:date, '%y-%m-%d')";
 		LocalDateTime date = LocalDateTime.now();
 
 		SqlParameterSource paramMap = new MapSqlParameterSource()
@@ -91,14 +90,14 @@ public class MenuRepository {
 
 	public Boolean isExistDailySales() {
 		// 오늘 판매량이 존재하는지 확인하는 쿼리
-		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(:current_date, '%Y-%m-%d'))";
+		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(:current_date, '%y-%m-%d'))";
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("current_date", LocalDateTime.now());
 		return namedParameterJdbcTemplate.queryForObject(sql, sqlParameterSource, Boolean.class);
 	}
 
 	public List<MenuResponseDto> findAllMenu() {
 		String sql = "SELECT * FROM menu";
-		return namedParameterJdbcTemplate.query(sql, new HashMap<>(), menuRowMapper());
+		return namedParameterJdbcTemplate.query(sql, menuRowMapper());
 	}
 
 }
