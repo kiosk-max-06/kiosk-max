@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`category`
     `id`   INT         NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ;
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`menu`
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`menu`
     `image`       VARCHAR(512) NOT NULL,
     `category_id` INT          NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ;
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`payment`
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`payment`
     `id`   INT         NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ;
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`orders`
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`orders`
     `changes`         INT NOT NULL COMMENT '거스름돈',
     `payment_id`      INT NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `fk_order_payment1_idx` (`payment_id` ASC) VISIBLE
-) ENGINE = InnoDB;
+    INDEX `fk_order_payment1_idx` (`payment_id` ASC)
+) ;
 
 -- -----------------------------------------------------
 -- Table `kiosk`.`order_menu`
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `kiosk`.`order_menu`
     `menu_id`  INT NOT NULL,
     `order_id` INT NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ;
 
 
 -- -----------------------------------------------------
