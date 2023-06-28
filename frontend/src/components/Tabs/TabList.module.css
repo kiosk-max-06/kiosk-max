@@ -22,7 +22,7 @@
 
 .tab_list li button {
   height: 100%;
-  padding: .8rem 2rem;
+  padding: 0.8rem 2rem;
   font-size: 1rem;
   font-weight: bold;
   background-color: transparent;
@@ -30,6 +30,7 @@
   border-radius: 10px;
   transition: color background 300ms;
   color: darkgray;
+  cursor: pointer;
 }
 .tab_list li button[data-active="true"] {
   color: white;

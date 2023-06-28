@@ -227,10 +227,15 @@ function Cart({ ctrl }: { ctrl: IController }) {
         </ul>
         {cart?.menuList && <ul>{cart.menuList.map(CartItem)}</ul>}
         <div className={styles.control}>
-          <button type="button" onClick={() => ctrl.cancel()}>
+          <button
+            className={styles.cancel_btn}
+            type="button"
+            onClick={() => ctrl.cancel()}>
             전체취소
           </button>
-          <button type="submit">결제하기</button>
+          <button className={styles.pay_btn} type="submit">
+            결제하기
+          </button>
           <p className="timer">{(remTime / 10).toFixed()}초 남음</p>
         </div>
       </form>
@@ -244,7 +249,7 @@ function CartItem(menu: IMenu, i: number) {
   const { name, price, imgUrl } = data;
 
   return (
-    <li key={key.toString()} className={styles.cart__li} data-count={count}>
+    <li key={key.toString()} data-count={count}>
       <figure>
         <img src={imgUrl} alt="" />
         <figcaption className="blind">{name}</figcaption>
