@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 
 import team6.codesquad.kiosk.order.dto.response.MenuResponseDto;
@@ -22,10 +23,12 @@ public class MenuRepositoryTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	MenuResponseDto menuResponseDto;
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@BeforeEach
 	public void set() {
-		menuRepository = new MenuRepository(jdbcTemplate.getDataSource());
+		menuRepository = new MenuRepository(jdbcTemplate, namedParameterJdbcTemplate);
 		menuResponseDto = new MenuResponseDto(17, "아메리카노(디카프)", 3500, "이미지", 5);
 	}
 

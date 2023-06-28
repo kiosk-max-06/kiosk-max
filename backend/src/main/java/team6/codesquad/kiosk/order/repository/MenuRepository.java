@@ -8,14 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+
 import org.springframework.stereotype.Repository;
 
 import team6.codesquad.kiosk.order.dto.response.CategoryResponseDto;
@@ -26,9 +25,11 @@ public class MenuRepository {
 	private final JdbcTemplate jdbcTemplate;
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	public MenuRepository(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+
+	public MenuRepository(JdbcTemplate template, NamedParameterJdbcTemplate parameterJdbcTemplate) {
+		jdbcTemplate = template;
+		namedParameterJdbcTemplate = parameterJdbcTemplate;
+
 	}
 
 	public int createDailySales(int menuId) {
