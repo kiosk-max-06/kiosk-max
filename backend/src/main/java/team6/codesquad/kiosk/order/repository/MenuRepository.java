@@ -66,12 +66,12 @@ public class MenuRepository {
 
 	public List<CategoryResponseDto> findAll() {
 		// sales 테이블에 count 값으로 정렬 된 menu들
-		String sql = "SELECT * FROM category";
+		String sql = "SELECT id, name FROM category";
 		return namedParameterJdbcTemplate.query(sql, categoryRowMapper());
 	}
 
 	public List<MenuResponseDto> findAllMenuByCategoryId(int categoryId) {
-		String sql = "SELECT * FROM menu WHERE category_id = :category_id";
+		String sql = "SELECT id, name, price, image, category_id FROM menu WHERE category_id = :category_id";
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("category_id", categoryId);
 		return namedParameterJdbcTemplate.query(sql, sqlParameterSource,
 			menuRowMapper());
@@ -88,7 +88,6 @@ public class MenuRepository {
 		return namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 	}
 
-
 	public Boolean isExistDailySales() {
 		// 오늘 판매량이 존재하는지 확인하는 쿼리
 		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(:current_date, '%y-%m-%d'))";
@@ -97,7 +96,7 @@ public class MenuRepository {
 	}
 
 	public List<MenuResponseDto> findAllMenu() {
-		String sql = "SELECT * FROM menu";
+		String sql = "SELECT id, name, price, image, category_id FROM menu";
 		return namedParameterJdbcTemplate.query(sql, menuRowMapper());
 	}
 
