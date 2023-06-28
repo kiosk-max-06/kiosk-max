@@ -1,9 +1,6 @@
 package team6.codesquad.kiosk.order.repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,11 +22,9 @@ public class MenuRepository {
 	private final JdbcTemplate jdbcTemplate;
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-
 	public MenuRepository(JdbcTemplate template, NamedParameterJdbcTemplate parameterJdbcTemplate) {
 		jdbcTemplate = template;
 		namedParameterJdbcTemplate = parameterJdbcTemplate;
-
 	}
 
 	public int createDailySales(int menuId) {
@@ -70,66 +65,46 @@ public class MenuRepository {
 
 	public List<CategoryResponseDto> findAll() {
 		// sales 테이블에 count 값으로 정렬 된 menu들
-		return jdbcTemplate.query("select * from category", categoryRowMapper());
+		String sql = "SELECT * FROM category";
+		return namedParameterJdbcTemplate.query(sql, categoryRowMapper());
 	}
 
-	// TODO: Sales 테이블에서 오늘 날짜(date)에 해당하는 menu들을 모아서 count별로 정렬 후, 카테고리 별로 나눠 List에 담는다.
 	public List<MenuResponseDto> findAllMenuByCategoryId(int categoryId) {
-		List<MenuResponseDto> menuResponseDtos = jdbcTemplate.query("select * from menu where category_id = ?",
-			menuRowMapper(), categoryId);
-		List<Integer> menuIds = menuResponseDtos.stream().map(MenuResponseDto::getId).toList();
-		return getMenuByMenuId(menuResponseDtos, sortedMenuIdByCount(menuIds));
+		String sql = "SELECT * FROM menu WHERE category_id = :category_id";
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("category_id", categoryId);
+		return namedParameterJdbcTemplate.query(sql, sqlParameterSource,
+			menuRowMapper());
 	}
 
-	private List<MenuResponseDto> getMenuByMenuId(List<MenuResponseDto> menuResponseDtos, List<Integer> menuIds) {
-		List<MenuResponseDto> newMenuResponseDtos = new ArrayList<>();
-		for (Integer menuId : menuIds) {
-			MenuResponseDto menu = menuResponseDtos.stream()
-				.filter(menuResponseDto -> menuResponseDto.getId() == menuId)
-				.findFirst().get();
-			newMenuResponseDtos.add(menu);
-		}
-		return newMenuResponseDtos;
-	}
+	public int getCountByMenuId(int menuId) {
+		String sql = "SELECT count FROM sales WHERE menu_id = :menu_id AND DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(:date, '%y-%m-%d')";
+		LocalDateTime date = LocalDateTime.now();
 
-	private List<Integer> sortedMenuIdByCount(List<Integer> menuIds) {
-		Map<Integer, Integer> map = new HashMap<>(); // (menuId, count)
-		menuIds.forEach(menuId -> { // sales 테이블에서 menuId로 count 값을 가져온다
-			String sql = "SELECT count FROM sales WHERE menu_id = ? AND DATE_FORMAT(?, '%y-%m-%d')";
-			int count = jdbcTemplate.queryForObject(sql, Integer.class, menuId, LocalDateTime.now());
-			map.put(menuId, count); // map에 넣는다.
-		});
-		return sortHashMapByValueDescending(map);
-	}
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+			.addValue("menu_id", menuId)
+			.addValue("date", date);
 
-	public List<Integer> sortHashMapByValueDescending(Map<Integer, Integer> map) {
-		List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(map.entrySet());
-		entries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
-		List<Integer> keys = new ArrayList<>();
-		for (Map.Entry<Integer, Integer> entry : entries) {
-			keys.add(entry.getKey());
-		}
-
-		return keys;
+		return namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 	}
 
 
 	public Boolean isExistDailySales() {
 		// 오늘 판매량이 존재하는지 확인하는 쿼리
-		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(?, '%y-%m-%d'))";
-		return jdbcTemplate.queryForObject(sql, Boolean.class, LocalDateTime.now());
+		String sql = "SELECT EXISTS(SELECT 1 FROM sales WHERE DATE_FORMAT(date, '%y-%m-%d') = DATE_FORMAT(:current_date, '%y-%m-%d'))";
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("current_date", LocalDateTime.now());
+		return namedParameterJdbcTemplate.queryForObject(sql, sqlParameterSource, Boolean.class);
 	}
 
-	public void fillCountZero() {
-		jdbcTemplate.query("select * from menu", menuRowMapper())
-			.forEach(menuResponseDto
-				-> createDailySales(menuResponseDto.getId()));  // 메뉴마다 당일판매량(sales)을 생성하는 쿼리를 날린다.
+	public List<MenuResponseDto> findAllMenu() {
+		String sql = "SELECT * FROM menu";
+		return namedParameterJdbcTemplate.query(sql, menuRowMapper());
 	}
+
 
 	public int findByName(String name) {
 		String sql = "SELECT id FROM menu WHERE name = :name";
 		SqlParameterSource namedParameters = new MapSqlParameterSource("name", name);
 		return namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
 	}
+
 }
