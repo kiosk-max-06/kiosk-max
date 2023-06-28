@@ -7,7 +7,6 @@ export interface ITabListProps {
 }
 
 export interface IPanelProps {
-  categoryName: string;
   menuList: TMenuList;
   ctrl: IController;
 }

@@ -18,6 +18,7 @@ import CashForm from "./components/Modal/CashForm.tsx";
 
 import styled from "./App.module.css";
 import "./common.css";
+import "./reset.css";
 
 function App() {
   const { NONE, MENU_OPTIONS, PAYMENT, CASH } = EActiveModal;
@@ -67,15 +68,18 @@ function App() {
     <div className={styled.app}>
       <Tabs data={mockData} ctrl={ctrl} />
       <Cart ctrl={ctrl} />
-      {activeModal && (
-        <article className="dimmed">
+      {activeModal ? (
+        <article className={styled.dimmed}>
           <h1 className="blind">배경을 어둡게</h1>
         </article>
-      )}
-      {activeModal && (
+      ) : null}
+      {activeModal ? (
         <dialog open className={styled.modal}>
           {activeModal !== CASH && (
-            <button type="button" onClick={() => ctrl.cancel()}>
+            <button
+              className={styled.cancel_button}
+              type="button"
+              onClick={() => ctrl.cancel()}>
               X
             </button>
           )}
@@ -83,7 +87,7 @@ function App() {
           {activeModal === PAYMENT && <PaymentForm ctrl={ctrl} />}
           {activeModal === CASH && <CashForm ctrl={ctrl} />}
         </dialog>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -94,6 +98,66 @@ function getMockData(): ICategories {
       id: 1,
       name: "커피",
       menuList: [
+        {
+          name: "아메리카노",
+          price: 4000,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "콜드브루",
+          price: 4500,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "아메리카노",
+          price: 4000,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "콜드브루",
+          price: 4500,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "아메리카노",
+          price: 4000,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "콜드브루",
+          price: 4500,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "아메리카노",
+          price: 4000,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "콜드브루",
+          price: 4500,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "아메리카노",
+          price: 4000,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
+        {
+          name: "콜드브루",
+          price: 4500,
+          imgUrl:
+            "https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp",
+        },
         {
           name: "아메리카노",
           price: 4000,

@@ -13,10 +13,10 @@ function MenuItem({ data, ctrl }: IMenuItemProps) {
       </figure>
       <dl>
         <dt className="blind">이름:</dt>
-        <dd data-label="이름">{name}</dd>
+        <dd>{name}</dd>
 
         <dt className="blind">가격:</dt>
-        <dd data-label="가격">
+        <dd>
           {price}
           <em>원</em>
         </dd>

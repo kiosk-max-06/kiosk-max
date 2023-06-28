@@ -1,65 +1,41 @@
 .tab_list {
-  width: 100%;
-  height: 88px;
-  margin: auto;
-  overflow: hidden;
+  flex-shrink: 0;
+  padding: 1rem;
 }
 
-.tab_list__wrapper {
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+.tab_list ul {
+  background: white;
+  border-radius: 10px;
   white-space: nowrap;
+  text-align: left;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }
 
-.tab_list__li {
-  width: 230px;
-  height: 80px;
+.tab_list li {
+  height: 100%;
   display: inline-block;
 }
 
-.tab_list__li:nth-child(n + 2) {
-  margin-left: 1rem;
-}
-
-.tab_list__button {
-  width: 100%;
+.tab_list li button {
   height: 100%;
-  border: none;
-  border-radius: 5px;
-  font-size: 2.4rem;
-  font-weight: 700;
+  padding: .8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: 0;
+  border-radius: 10px;
+  transition: color background 300ms;
+  color: darkgray;
+}
+.tab_list li button[data-active="true"] {
   color: white;
-  text-shadow: 1px 1px 1px gray;
-  box-sizing: border-box;
-  cursor: pointer;
-  opacity: 0.4;
-  border: 8px double rgba(255, 255, 255, 0.2);
-  transition: border 250ms;
-}
-.tab_list__button[data-active="true"] {
-  opacity: 1;
-  border: 12px double rgba(255, 255, 255, 0.6);
+  text-shadow: 1px 1px 1px #e15f41;
 }
 
-.tabs__button:hover,
-.tabs__button:focus,
-.tabs__button:active {
-  opacity: 1;
-}
-
-.tab_list__li[data-name="커피"] .tab_list__button {
-  background-color: #d35400;
-}
-.tab_list__li[data-name="라떼"] .tab_list__button {
-  background-color: #e67e22;
-}
-.tab_list__li[data-name="티"] .tab_list__button {
-  background-color: #2ecc71;
-}
-.tab_list__li[data-name="쥬스"] .tab_list__button {
-  background-color: #f1c40f;
-}
-.tab_list__li[data-name="디카페인"] .tab_list__button {
-  background-color: #3498db;
+.tab_list li button[data-active="true"] {
+  background-color: #f19066;
 }

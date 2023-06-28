@@ -36,10 +36,7 @@ function Cart({ ctrl }: { ctrl: IController }) {
   }
 
   return (
-    <article
-      className={styles.cart}
-      id={styles.cart}
-      data-active={cart ? "true" : "false"}>
+    <article className={styles.cart} data-active={cart ? "true" : "false"}>
       <h2 className="blind">카트</h2>
       <form onSubmit={formSubmitHandler}>
         {cart && (
@@ -50,27 +47,191 @@ function Cart({ ctrl }: { ctrl: IController }) {
             value={JSON.stringify(cart!.menuList)}
           />
         )}
+        <ul>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
 
-        <div className={styles.cart__inner}>
-          <div className={styles.cart__left}>
-            {cart && (
-              <ul className={styles.cart__ul}>
-                {cart!.menuList.map(CartItem)}
-              </ul>
-            )}
-          </div>
-          <div className={styles.cart__right}>
-            <button
-              className={styles.cart__button}
-              type="button"
-              onClick={() => ctrl.cancel()}>
-              전체취소
-            </button>
-            <button className={styles.cart__button} type="submit">
-              결제하기
-            </button>
-            <p className="timer">{(remTime / 10).toFixed()}초 남음</p>
-          </div>
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+          <li>
+            <figure>
+              <img
+                src="https://i.namu.wiki/i/xudhD8Lo7zDtJ_7rpN1BWT7f-fWIYDczKlqgeFgrr5e_QTtAj3ENcFaTHbB41cNbh4xbP7LqDsrehVqc9ZkyAg.webp"
+                alt=""
+              />
+              <figcaption className="blind">아메리카노</figcaption>
+            </figure>
+            <dl>
+              <dt className="blind">이름:</dt>
+              <dd>아메리카노</dd>
+
+              <dt className="blind">가격:</dt>
+              <dd>4000</dd>
+            </dl>
+          </li>
+        </ul>
+        {cart?.menuList && <ul>{cart.menuList.map(CartItem)}</ul>}
+        <div className={styles.control}>
+          <button type="button" onClick={() => ctrl.cancel()}>
+            전체취소
+          </button>
+          <button type="submit">결제하기</button>
+          <p className="timer">{(remTime / 10).toFixed()}초 남음</p>
         </div>
       </form>
     </article>

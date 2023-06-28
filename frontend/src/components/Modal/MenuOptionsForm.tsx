@@ -40,113 +40,97 @@ function MenuOptionsForm({ ctrl }: { ctrl: IController }) {
 
   return (
     <form className={styles.form} onSubmit={formSubmitHandler}>
-      <div className={styles.inner}>
-        <div className={styles.left}>
-          {menu && (
-            <figure className={styles.form__img}>
-              <img src={menu.data.imgUrl} alt="" />
-              <figcaption className="blind">커피</figcaption>
-            </figure>
-          )}
-        </div>
-        <div className={styles.right}>
-          <fieldset className={styles.form__field}>
-            <label className={styles.form__size_checker} htmlFor="large">
-              <input
-                className="blind"
-                type="radio"
-                name="size"
-                value="large"
-                id="large"
-                required
-              />
-              <article className={styles.bg}>
-                <h3 className="blind">버튼배경</h3>
-              </article>
-              <span>큰거</span>
-            </label>
-            <label className={styles.form__size_checker} htmlFor="small">
-              <input
-                className="blind"
-                type="radio"
-                name="size"
-                value="small"
-                id="small"
-                required
-              />
-              <article className={styles.bg}>
-                <h3 className="blind">버튼배경</h3>
-              </article>
-              <span>작은거</span>
-            </label>
-          </fieldset>
-          <fieldset className={styles.form__field}>
-            <label className={styles.form__temperature_checker} htmlFor="hot">
-              <input
-                className="blind"
-                type="radio"
-                name="temperature"
-                value="hot"
-                id="hot"
-                required
-              />
-              <article className={styles.bg}>
-                <h3 className="blind">버튼배경</h3>
-              </article>
-              <span> 뜨거운 것</span>
-            </label>
-            <label className={styles.form__temperature_checker} htmlFor="ice">
-              <input
-                className="blind"
-                type="radio"
-                name="temperature"
-                value="ice"
-                id="ice"
-                required
-              />
-              <article className={styles.bg}>
-                <h3 className="blind">버튼배경</h3>
-              </article>
-              <span>차가운 것</span>
-            </label>
-          </fieldset>
-          <fieldset className={styles.form__field} id={styles.count_field}>
-            <button
-              className={styles.count_button}
-              type="button"
-              onClick={() => clickHandler("decrement")}>
-              -
-            </button>
-            <div className={styles.count_window}>
-              <input
-                className={styles.count_input}
-                type="number"
-                name="count"
-                id="count"
-                max="99"
-                min="1"
-                value={count}
-                onInput={(e) => {
-                  const input = e.target as HTMLInputElement;
-                  if (input.value && input.value !== "0") {
-                    setCount(Number(input.value));
-                  }
-                }}
-                required
-              />
-            </div>
-            <button
-              className={styles.count_button}
-              type="button"
-              onClick={() => clickHandler("increment")}>
-              +
-            </button>
-          </fieldset>
-        </div>
+      {menu && (
+        <figure>
+          <img src={menu.data.imgUrl} alt="" />
+          <figcaption className="blind">커피</figcaption>
+        </figure>
+      )}
+      <div className={styles.info}>
+        <fieldset>
+          <label htmlFor="small">
+            <input
+              className="blind"
+              type="radio"
+              name="size"
+              value="small"
+              id="small"
+              required
+            />
+            <span className={styles.bg}>배경색</span>
+            <span>small</span>
+          </label>
+          <label htmlFor="large">
+            <input
+              className="blind"
+              type="radio"
+              name="size"
+              value="large"
+              id="large"
+              required
+            />
+            <span className={styles.bg}>배경색</span>
+            <span>large</span>
+          </label>
+        </fieldset>
+        <fieldset>
+          <label htmlFor="ice">
+            <input
+              className="blind"
+              type="radio"
+              name="temperature"
+              value="ice"
+              id="ice"
+              required
+            />
+            <span className={styles.bg}>배경색</span>
+            <span>ICE</span>
+          </label>
+          <label htmlFor="hot">
+            <input
+              className="blind"
+              type="radio"
+              name="temperature"
+              value="hot"
+              id="hot"
+              required
+            />
+            <span className={styles.bg}>배경색</span>
+            <span>HOT</span>
+          </label>
+        </fieldset>
+        <fieldset className={styles.count_field}>
+          <button
+            className={styles.count_button}
+            type="button"
+            onClick={() => clickHandler("decrement")}>
+            -
+          </button>
+          <input
+            className={styles.count_input}
+            type="number"
+            name="count"
+            id="count"
+            max="99"
+            min="1"
+            value={count}
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+              if (input.value && input.value !== "0") {
+                setCount(Number(input.value));
+              }
+            }}
+            required
+          />
+          <button
+            className={styles.count_button}
+            type="button"
+            onClick={() => clickHandler("increment")}>
+            +
+          </button>
+        </fieldset>
+        <button type="submit">담기</button>
       </div>
-      <button className={styles.form__submit} type="submit">
-        담기
-      </button>
     </form>
   );
 }

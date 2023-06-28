@@ -1,124 +1,116 @@
 .form {
-  width: 100%;
-  height: 100%;
-}
-
-.inner {
   display: flex;
-  margin-bottom: 30px;
   gap: 1rem;
 }
 
-.right {
-  width: 50%;
-}
-
-.form__img {
-  margin: 0;
+.form figure {
   height: 200px;
-  width: 250px;
+  width: 200px;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.form__img img {
+.form figure img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
 
-.form__field {
-  padding: 0;
-  display: flex;
-  gap: 1rem;
-  border: 0;
-  margin-bottom: 1.5rem;
-  width: 100%;
+.info {
+  padding: 2rem 0 0;
 }
 
-.bg {
+.info fieldset {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.info label {
+  position: relative;
+  font-weight: bold;
+  font-size: 0.8rem;
+  display: inline-block;
+  height: 2rem;
+  width: 3rem;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.info label::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.info label span {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.4;
-  background-color: red;
-}
-
-.form__size_checker,
-.form__temperature_checker {
-  position: relative;
-}
-
-.form__size_checker span,
-.form__temperature_checker span {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 
-.form__temperature_checker input:checked + article,
-.form__size_checker input:checked + article {
-  opacity: 1;
+.info label span.bg {
+  font-size: 0;
+  z-index: 0;
 }
 
-.form__size_checker article {
-  background-color: lightseagreen;
-}
-
-.form__temperature_checker article {
-  background-color: goldenrod;
-}
-
-.form__size_checker,
-.form__temperature_checker {
-  width: 50%;
-  box-sizing: border-box;
-  font: 1.8rem;
-  height: 3rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.info label input:checked ~ span {
   color: white;
-  font-weight: 700;
-  cursor: pointer;
-  position: relative;
 }
 
-#count_field {
-  justify-content: center;
+.info label[for="small"] input:checked + .bg {
+  background-color: #f7d794;
 }
 
-.count_window {
-  width: 2.6rem;
-  overflow: hidden;
-  border: 2px solid gray;
-  border-radius: 50%;
-  box-sizing: border-box;
+.info label[for="large"] input:checked + .bg {
+  background-color: #786fa6;
 }
 
-.count_input {
-  text-align: center;
-  font-size: 1.4rem;
-  line-height: 2.4rem;
-  width: 3rem;
-  border: 0;
-  color: black;
+.info label[for="ice"] input:checked + .bg {
+  background-color: #546de5;
+}
+
+.info label[for="hot"] input:checked + .bg {
+  background-color: #e15f41;
+}
+
+.count_field {
+  gap: 1rem;
 }
 
 .count_button {
-  width: 40px;
-  height: 40px;
-  font-size: 2rem;
-  border: 1px solid lightgray;
-  cursor: pointer;
+  border: 0;
+  font-size: 1rem;
 }
 
-.form__submit {
+.count_input {
+  border: 0;
+  width: 3rem;
+  text-align: center;
+  transform: translate(0.5rem);
+}
+
+.form button[type="submit"] {
   width: 100%;
-  height: 4rem;
-  font-size: 2rem;
-  background-color: crimson;
-  border: 8px double rgba(255, 255, 255, 0.8);
-  font-size: 1.6rem;
-  color: ghostwhite;
+  background-color: #303952;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  opacity: 0.1;
+  cursor: no-drop;
+}
+
+.form:valid button[type="submit"] {
+  opacity: 1;
   cursor: pointer;
 }
