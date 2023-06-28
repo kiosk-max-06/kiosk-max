@@ -21,6 +21,9 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+	enabled = false
+}
 bootJar{
 	archivesBaseName = 'kiosk'
 	archiveFileName = 'spring-webapp.jar'
