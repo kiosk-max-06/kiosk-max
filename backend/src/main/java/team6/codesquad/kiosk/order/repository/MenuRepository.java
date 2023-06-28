@@ -13,6 +13,8 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +24,11 @@ import team6.codesquad.kiosk.order.dto.response.MenuResponseDto;
 @Repository
 public class MenuRepository {
 	private final JdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	public MenuRepository(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public int createDailySales(int menuId) {
@@ -120,5 +124,11 @@ public class MenuRepository {
 		jdbcTemplate.query("select * from menu", menuRowMapper())
 			.forEach(menuResponseDto
 				-> createDailySales(menuResponseDto.getId()));  // 메뉴마다 당일판매량(sales)을 생성하는 쿼리를 날린다.
+	}
+
+	public int findByName(String name) {
+		String sql = "SELECT id FROM menu WHERE name = :name";
+		SqlParameterSource namedParameters = new MapSqlParameterSource("name", name);
+		return namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
 	}
 }
