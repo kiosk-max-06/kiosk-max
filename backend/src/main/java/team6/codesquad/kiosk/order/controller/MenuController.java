@@ -2,6 +2,7 @@ package team6.codesquad.kiosk.order.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class MenuController {
 
 	@Operation(summary = "영수증 발급", description = "주문 내용을 사용자에게 알려준다.")
 	@GetMapping("/")
-	public List<CategoryResponseDto> getMenuList() {
-		return menuService.getCategories();
+	public ResponseEntity<List<CategoryResponseDto>> getMenuList() {
+		return ResponseEntity.ok().body(menuService.getCategories());
 	}
 }
