@@ -1,39 +1,6 @@
-import { CartItemData, MenuCategory } from "../App.tsx";
-import { PaymentDetails } from "../components/Modal/PaymentForm.tsx";
+import TCategory from "../types/TCategory.ts";
 
-export async function fetchMenus() {
-  const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}`);
-  const data = await res.json();
-  return data;
-}
-
-export async function sendOrderRequest(
-  paymentDetails: PaymentDetails,
-  cart: CartItemData[]
-) {
-  const menus = cart.map(({ name, count, options }) => ({
-    name,
-    count,
-    options,
-  }));
-
-  const body = {
-    menus,
-    ...paymentDetails,
-  };
-
-  const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/order`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  const data = await res.json();
-  return data;
-}
-
-export function getMockData(): MenuCategory[] {
+function getMockData(): TCategory[] {
   return [
     {
       id: 1,
@@ -203,3 +170,4 @@ export function getMockData(): MenuCategory[] {
     },
   ];
 }
+export default getMockData;

@@ -1,109 +1,83 @@
-import React, { useState, useEffect } from "react";
-import Tabs from "./components/Tabs/Tabs.tsx";
-import Modal from "./components/Modal/Modal.tsx";
-import MenuOptionsForm from "./components/Modal/MenuOptionsForm.tsx";
-import PaymentForm from "./components/Modal/PaymentForm.tsx";
-import CashForm from "./components/Modal/CashForm.tsx";
-import Cart from "./components/Cart/Cart.tsx";
-import { ActiveModal, Size, Temperature } from "./types/contants.ts";
-import { fetchMenus, getMockData } from "./api/index.ts";
-import "./common.css";
+import React, { useState } from "react";
+import EWorkflow from "./constants/EWorkflow.ts";
+import getMockData from "./utils/getMockData.ts";
+import TCategory from "./types/TCategory.ts";
+import Tabs from "./components/Tabs.tsx";
+import TMenu from "./types/TMenu.ts";
 import "./reset.css";
+import "./common.css";
 import styles from "./App.module.css";
 
-export type MenuCategory = {
-  id: number;
-  name: string;
-  menus: MenuItem[];
-};
-
-export type MenuItem = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  categoryId: number;
-};
-
-export type ActiveModalState = {
-  name: ActiveModal;
-  content?: MenuItem;
-};
-
-export type CartItemData = {
-  name: string;
-  price: number;
-  image: string;
-  count: number;
-  options: [Size, Temperature];
-};
+const { NONE, MENU_OPTIONS, PAYMENT, AMOUNT } = EWorkflow;
 
 function App() {
-  // const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
-  const [activeModal, setActiveModal] = useState<ActiveModalState>({
-    name: ActiveModal.NONE,
-  });
-  const [cart, setCart] = useState<CartItemData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // initialize to true
+  const [workflow, setWorkflow] = useState<EWorkflow>(NONE);
 
-  // async function getMenus() {
-  //   const menus = await fetchMenus();
-  //   setMenuCategories(menus);
-  //   console.log("menuCategories", menuCategories);
-  //   setIsLoading(false);
-  // }
+  const categories: TCategory[] = getMockData();
 
-  // useEffect(() => {
-  //   getMenus();
-  // }, []);
-
-  const mockData = getMockData();
-
+  const tabNames = categoriesToTabItems(categories);
+  const tabChildrenMap = tabNamesToTabChildrenMap(tabNames);
+  const panelChildrenMap = categoriesToPanelChildrenMap(categories);
   return (
-    <div className={styles.app}>
-      {isLoading ? (
-        <div>loading...</div>
-      ) : (
-        <>
-          <Tabs {...{ menuCategories: mockData, setActiveModal }} />
-
-          {cart.length > 0 && <Cart {...{ cart, setCart, setActiveModal }} />}
-
-          {activeModal.name !== ActiveModal.NONE && (
-            <Modal>
-              {activeModal.name !== ActiveModal.CASH && (
-                <button
-                  className={styles.cancel_button}
-                  type="button"
-                  onClick={() => setActiveModal({ name: ActiveModal.NONE })}>
-                  X
-                </button>
-              )}
-              {activeModal.name === ActiveModal.MENU_OPTIONS && (
-                <MenuOptionsForm
-                  {...{
-                    cart,
-                    setCart,
-                    setActiveModal,
-                    menuItem: activeModal.content!,
-                  }}
-                />
-              )}
-              {activeModal.name === ActiveModal.PAYMENT && (
-                <PaymentForm
-                  {...{ cart, setActiveModal, setCart, setIsLoading }}
-                />
-              )}
-              {activeModal.name === ActiveModal.CASH && (
-                <CashForm
-                  {...{ cart, setActiveModal, setCart, setIsLoading }}
-                />
-              )}
-            </Modal>
-          )}
-        </>
-      )}
+    <div className={styles.container}>
+      <Tabs
+        tabNames={tabNames}
+        tabChildrenMap={tabChildrenMap}
+        panelChildrenMap={panelChildrenMap}
+      />
     </div>
+  );
+}
+
+function tabNamesToTabChildrenMap(tabNames: string[]) {
+  const map: { [key: string]: JSX.Element } = {};
+  tabNames.forEach((tabName) => {
+    Object.assign(map, {
+      [tabName]: <span className={styles.tab}>{tabName}</span>,
+    });
+  });
+  return map;
+}
+
+function categoriesToTabItems(categories: TCategory[]) {
+  return categories.map((category) => category.name);
+}
+
+function categoriesToPanelChildrenMap(categories: TCategory[]) {
+  const map: { [key: string]: JSX.Element } = {};
+  categories.forEach(({ name, menus }) => {
+    Object.assign(map, { [name]: <MenuList menus={menus} /> });
+  });
+  return map;
+}
+
+function MenuList({ menus }: { menus: TMenu[] }) {
+  return (
+    <ul className={styles.menulist}>
+      {menus.map((menu) => (
+        <Menu key={menu.name} menu={menu} />
+      ))}
+    </ul>
+  );
+}
+
+function Menu({ menu }: { menu: TMenu }) {
+  const { name, price, image } = menu;
+  return (
+    <li className={styles.card}>
+      <figure>
+        <img src={image} alt="" />
+        <figcaption className="blind">{name}</figcaption>
+      </figure>
+      <dl>
+        <dt className="blind">이름</dt>
+        <dd>{name}</dd>
+
+        <dt className="blind">가격</dt>
+        <dd>{price}</dd>
+      </dl>
+      <button type="button">{menu.name} 추가하기</button>
+    </li>
   );
 }
 

@@ -1,0 +1,22 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab_list {
+  display: flex;
+}
+
+.tab_list li {
+  display: flex;
+}
+
+.tab_list button {
+  border: 0;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.panel {
+  border: 1px solid black;
+}
