@@ -36,11 +36,12 @@
 }
 
 .cart form ul li {
-  width: 100px;
+  width: 132px;
   height: 100%;
   padding: 0.6rem;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 5px;
   border-radius: 10px;
   box-sizing: border-box;

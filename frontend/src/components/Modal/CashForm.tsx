@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { CartItemData, ActiveModalState } from "../../App.tsx";
+import { CartItemData, ActiveModalState, ReceiptData } from "../../App.tsx";
 import { sendOrderRequest } from "../../api/index.ts";
 import { PaymentDetails } from "./PaymentForm.tsx";
 import { ActiveModal } from "../../types/contants.ts";
@@ -12,6 +12,7 @@ type CashFormProps = {
   cart: CartItemData[];
   setCart: (cart: CartItemData[]) => void;
   setActiveModal: (activeModalState: ActiveModalState) => void;
+  setReceipt: (receiptData: ReceiptData) => void;
   setIsLoading: (isLoading: boolean) => void;
 };
 
@@ -19,6 +20,7 @@ function CashForm({
   cart,
   setCart,
   setActiveModal,
+  setReceipt,
   setIsLoading,
 }: CashFormProps) {
   const [receivedAmount, setReceivedAmount] = useState<number>(0);
@@ -41,13 +43,11 @@ function CashForm({
       receivedAmount,
     };
     const orderResponse = await sendOrderRequest(paymentDetails, cart);
-    console.log(orderResponse);
 
     setActiveModal({ name: ActiveModal.NONE });
     setCart([]);
-    setIsLoading(false);
-
-    // TODO: display receipt using `orderResponse`
+    setTimeout(() => setIsLoading(false), 3000);
+    setReceipt(orderResponse);
   }
 
   return (
