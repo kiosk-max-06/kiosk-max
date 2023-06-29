@@ -53,7 +53,10 @@ function Cart({ cart, setCart, setActiveModal }: CartProps) {
         />
         <ul>
           {cart.map((cartItem, index) => (
-            <CartItem key={Symbol(index).toString()} {...{ cartItem }} />
+            <CartItem
+              key={Symbol(index).toString()}
+              {...{ cartItem, cart, setCart }}
+            />
           ))}
         </ul>
         <div className={styles.control}>
@@ -75,13 +78,21 @@ function Cart({ cart, setCart, setActiveModal }: CartProps) {
 
 type CartItemProps = {
   cartItem: CartItemData;
+  cart: CartItemData[];
+  setCart: (cart: CartItemData[]) => void;
 };
 
-function CartItem({ cartItem }: CartItemProps) {
+function CartItem({ cartItem, cart, setCart }: CartItemProps) {
   const { name, count, price, image } = cartItem;
 
   return (
-    <li data-count={count}>
+    <li className={styles.cart_item} data-count={count}>
+      <button
+        type="button"
+        className={styles.cancel}
+        onClick={() => setCart(cart.filter((item) => item !== cartItem))}>
+        ✕
+      </button>
       <figure>
         <img src={image} alt="" />
         <figcaption className="blind">{name}</figcaption>
