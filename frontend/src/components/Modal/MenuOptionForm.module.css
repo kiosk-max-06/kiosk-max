@@ -36,7 +36,7 @@
   font-size: 0.8rem;
   display: inline-block;
   height: 2rem;
-  width: 3rem;
+  width: 4.2rem;
   border-radius: 3px;
   overflow: hidden;
   cursor: pointer;
@@ -52,15 +52,16 @@
 }
 
 .info label span {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  text-transform: uppercase;
 }
 
 .info label span.bg {

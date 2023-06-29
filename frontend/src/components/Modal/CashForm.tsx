@@ -4,6 +4,7 @@ import { sendOrderRequest } from "../../api/index.ts";
 import { PaymentDetails } from "./PaymentForm.tsx";
 import { ActiveModal } from "../../types/contants.ts";
 import { calcCartTotalAmount } from "../../utils/index.ts";
+import styles from "./CashForm.module.css";
 
 const cashOptions = [500, 1000, 5000, 10000];
 
@@ -50,7 +51,7 @@ function CashForm({
   }
 
   return (
-    <form onSubmit={payByCash}>
+    <form className={styles.cash} onSubmit={payByCash}>
       <input
         className="blind"
         type="number"
@@ -59,14 +60,17 @@ function CashForm({
         value={receivedAmount}
         onChange={() => setReceivedAmount(receivedAmount)}
       />
-      {cashOptions.map((cashOption) => (
-        <button
-          key={cashOption}
-          type="button"
-          onClick={() => setReceivedAmount(receivedAmount + cashOption)}>
-          {cashOption}원
-        </button>
-      ))}
+      <ul>
+        {cashOptions.map((cashOption) => (
+          <li key={cashOption}>
+            <button
+              type="button"
+              onClick={() => setReceivedAmount(receivedAmount + cashOption)}>
+              {cashOption}원
+            </button>
+          </li>
+        ))}
+      </ul>
       <dl>
         <dt>주문금액:</dt>
         <dd>{calcCartTotalAmount(cart)}</dd>

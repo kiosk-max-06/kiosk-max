@@ -24,9 +24,9 @@
 .cart form ul {
   width: 60%;
   height: 100%;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 2.8rem;
   overflow: scroll;
   box-sizing: border-box;
 }
@@ -85,6 +85,7 @@
   box-sizing: border-box;
   opacity: 1;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .cancel_btn {
@@ -99,30 +100,31 @@
   position: relative;
 }
 
-
 .cart_item::before,
 .cancel {
   position: absolute;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   font-size: 0.8rem;
-  background-color: #303952;
   color: white;
   font-weight: bold;
   top: 0;
 }
+
 .cart_item::before {
   content: attr(data-count);
   left: 0;
+  background-color: #303952;
   transform: translate(-50%, -50%);
 }
 
 .cancel {
   right: 0;
+  background-color: rgb(245, 109, 109);
   transform: translate(50%, -50%);
 }

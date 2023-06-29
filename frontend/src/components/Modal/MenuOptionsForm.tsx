@@ -102,7 +102,7 @@ function MenuOptionsForm({
               required
             />
             <span className={styles.bg}>배경색</span>
-            <span>ICE</span>
+            <span>ice</span>
           </label>
           <label htmlFor="hot">
             <input
@@ -114,7 +114,7 @@ function MenuOptionsForm({
               required
             />
             <span className={styles.bg}>배경색</span>
-            <span>HOT</span>
+            <span>hot</span>
           </label>
         </fieldset>
         <fieldset className={styles.count_field}>
