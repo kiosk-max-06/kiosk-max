@@ -1,0 +1,28 @@
+.payment {
+  padding: 2rem 1rem 1rem;
+}
+
+.payment div{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.payment div:first-child {
+  margin-bottom: 1rem;
+}
+
+.payment span{
+  font-size: 3rem;
+}
+
+.payment button{
+  padding: 1rem 2rem;
+  background-color: #f19066;
+  text-shadow: 1px 1px 1px #e15f41;
+  border-radius: 5px;
+  font-weight: bold;
+  border: 0;
+  color: white;
+  cursor: pointer;
+}

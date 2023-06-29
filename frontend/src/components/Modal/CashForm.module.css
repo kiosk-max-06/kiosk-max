@@ -1,0 +1,38 @@
+.cash ul {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.cash button {
+  padding: 0.5rem 1rem;
+  border: 0;
+  background-color: #f19066;
+  text-shadow: 1px 1px 1px #e15f41;
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cash dl {
+  display: flex;
+  padding: 1rem 0;
+}
+
+.cash dt {
+  flex-grow: 1;
+}
+
+.cash dd {
+  flex-grow: 4;
+  text-align: left;
+}
+
+.cash button[type="submit"] {
+  width: 100%;
+  padding: 1rem 0;
+  background-color: #303952;
+  text-shadow: 1px 1px 1px #434343;
+}
