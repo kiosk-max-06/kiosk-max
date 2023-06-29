@@ -6,7 +6,7 @@ import PaymentForm from "./components/Modal/PaymentForm.tsx";
 import CashForm from "./components/Modal/CashForm.tsx";
 import Cart from "./components/Cart/Cart.tsx";
 import { ActiveModal, Size, Temperature } from "./types/contants.ts";
-import { fetchMenus, getMockData } from "./api/index.ts";
+import { fetchMenus } from "./api/index.ts";
 import "./common.css";
 import "./reset.css";
 import styles from "./App.module.css";
@@ -39,25 +39,22 @@ export type CartItemData = {
 };
 
 function App() {
-  // const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
+  const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
   const [activeModal, setActiveModal] = useState<ActiveModalState>({
     name: ActiveModal.NONE,
   });
   const [cart, setCart] = useState<CartItemData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // initialize to true
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // async function getMenus() {
-  //   const menus = await fetchMenus();
-  //   setMenuCategories(menus);
-  //   console.log("menuCategories", menuCategories);
-  //   setIsLoading(false);
-  // }
+  useEffect(() => {
+    async function getMenus() {
+      const menus = await fetchMenus();
+      setMenuCategories(menus);
+      setIsLoading(false);
+    }
 
-  // useEffect(() => {
-  //   getMenus();
-  // }, []);
-
-  const mockData = getMockData();
+    getMenus();
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -65,18 +62,18 @@ function App() {
         <div>loading...</div>
       ) : (
         <>
-          <Tabs {...{ menuCategories: mockData, setActiveModal }} />
+          <Tabs {...{ menuCategories, setActiveModal }} />
 
           {cart.length > 0 && <Cart {...{ cart, setCart, setActiveModal }} />}
 
           {activeModal.name !== ActiveModal.NONE && (
-            <Modal>
+            <Modal {...{ setActiveModal }}>
               {activeModal.name !== ActiveModal.CASH && (
                 <button
                   className={styles.cancel_button}
                   type="button"
                   onClick={() => setActiveModal({ name: ActiveModal.NONE })}>
-                  X
+                  ✕
                 </button>
               )}
               {activeModal.name === ActiveModal.MENU_OPTIONS && (

@@ -11,12 +11,15 @@
 }
 
 .form figure img {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: 0% 100%;
 }
 
 .info {
+  display: flex;
+  flex-direction: column;
   padding: 2rem 0 0;
 }
 
@@ -36,6 +39,7 @@
   width: 3rem;
   border-radius: 3px;
   overflow: hidden;
+  cursor: pointer;
 }
 .info label::after {
   content: "";
@@ -68,20 +72,8 @@
   color: white;
 }
 
-.info label[for="small"] input:checked + .bg {
-  background-color: #f7d794;
-}
-
-.info label[for="large"] input:checked + .bg {
-  background-color: #786fa6;
-}
-
-.info label[for="ice"] input:checked + .bg {
-  background-color: #546de5;
-}
-
-.info label[for="hot"] input:checked + .bg {
-  background-color: #e15f41;
+.info label input:checked + .bg {
+  background-color: #f19066;
 }
 
 .count_field {
@@ -91,6 +83,8 @@
 .count_button {
   border: 0;
   font-size: 1rem;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .count_input {
@@ -101,7 +95,9 @@
 }
 
 .form button[type="submit"] {
+  height: 100%;
   width: 100%;
+  border-radius: 3px;
   background-color: #303952;
   color: white;
   font-weight: bold;

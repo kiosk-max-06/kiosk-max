@@ -18,16 +18,21 @@ function MenuOptionsForm({
 }: MenuOptionsFormProps) {
   const [count, setCount] = useState(1);
 
+  function isValidCount(count: number): boolean {
+    return count > 0 && count < 100;
+  }
+
   function countClickHandler(action: "increment" | "decrement") {
-    let nextCount = count;
-
-    if (action === "increment" && nextCount < 100) {
-      nextCount += 1;
-    } else if (action === "decrement" && nextCount > 0) {
-      nextCount -= 1;
-    }
-
-    setCount(nextCount);
+    setCount((count) => {
+      switch (action) {
+        case "increment":
+          return isValidCount(count + 1) ? count + 1 : count;
+        case "decrement":
+          return isValidCount(count - 1) ? count - 1 : count;
+        default:
+          return count;
+      }
+    });
   }
 
   function addNewCartItem(evt: React.FormEvent): void {
@@ -126,7 +131,13 @@ function MenuOptionsForm({
             id="count"
             max="99"
             min="1"
-            defaultValue={count}
+            value={count}
+            onChange={(e) =>
+              setCount(Number((e.target as HTMLInputElement).value))
+            }
+            onInput={(e) =>
+              setCount(Number((e.target as HTMLInputElement).value))
+            }
             required
           />
           <button

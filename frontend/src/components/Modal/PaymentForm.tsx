@@ -7,7 +7,7 @@ import { calcCartTotalAmount } from "../../utils/index.ts";
 export type PaymentDetails = {
   paymentType: "card" | "cash";
   totalAmount: number;
-  receivedAmount?: number;
+  receivedAmount: number;
 };
 
 type PaymentFormProps = {
@@ -28,9 +28,12 @@ function PaymentForm({
 
     setIsLoading(true);
 
+    const totalAmount = calcCartTotalAmount(cart);
+
     const paymentDetails: PaymentDetails = {
       paymentType: "card",
-      totalAmount: calcCartTotalAmount(cart),
+      totalAmount,
+      receivedAmount: totalAmount,
     };
     const orderResponse = await sendOrderRequest(paymentDetails, cart);
     console.log(orderResponse);

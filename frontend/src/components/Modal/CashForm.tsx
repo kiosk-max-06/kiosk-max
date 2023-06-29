@@ -56,7 +56,8 @@ function CashForm({
         type="number"
         name="amount"
         id="receivedAmount"
-        defaultValue={receivedAmount}
+        value={receivedAmount}
+        onChange={() => setReceivedAmount(receivedAmount)}
       />
       {cashOptions.map((cashOption) => (
         <button
