@@ -1,0 +1,20 @@
+.panel {
+  height: 100%;
+  padding: 1rem 0;
+  overflow: scroll;
+  box-sizing: border-box;
+  background-color: #f6f5f8;
+}
+
+.panel::-webkit-scrollbar {
+  display: none;
+}
+
+.panel div {
+  height: 100%;
+  overflow: scroll;
+}
+
+.panel div::-webkit-scrollbar {
+  display: none;
+}

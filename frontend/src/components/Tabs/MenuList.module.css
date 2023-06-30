@@ -1,0 +1,9 @@
+.menu_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1rem;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 1rem;
+}
