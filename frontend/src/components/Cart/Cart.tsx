@@ -10,7 +10,7 @@ type CartProps = {
 };
 
 function Cart({ cart, setCart, setActiveModal }: CartProps) {
-  const [remainingTime, setRemainingTime] = useState(600);
+  const [remainingTime, setRemainingTime] = useState(300);
 
   const prevNumItems = useRef<number>(cart ? cart.length : 0);
 

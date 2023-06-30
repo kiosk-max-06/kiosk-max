@@ -24,6 +24,7 @@ function Tabs({ menuCategories, setActiveModal }: TabsProps) {
           setActiveModal,
         }}
       />
+      <p>※전 메뉴 프로틴 첨가</p>
     </div>
   );
 }
