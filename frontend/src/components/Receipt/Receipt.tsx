@@ -8,7 +8,7 @@ type ReceiptProps = {
 };
 
 function Receipt({
-  receipt: { orderId, menus, paymentType, paymentAmount, totalAmount, change },
+  receipt: { orderId, menus, paymentType, receivedAmount, totalAmount, change },
   setReceipt,
 }: ReceiptProps) {
   const [remainTime, setRemainTime] = useState<number>(10);
@@ -61,8 +61,8 @@ function Receipt({
           {paymentType === "cash" && (
             <>
               <dt className="blind">투입금액</dt>
-              <dd data-label="투입금액" aria-label={`${paymentAmount}원`}>
-                &#8361;{paymentAmount}
+              <dd data-label="투입금액" aria-label={`${receivedAmount}원`}>
+                &#8361;{receivedAmount}
               </dd>
             </>
           )}
@@ -80,7 +80,6 @@ function Receipt({
               </dd>
             </>
           )}
-          {paymentType === "cash" && change}
         </dl>
         <div>
           <p>

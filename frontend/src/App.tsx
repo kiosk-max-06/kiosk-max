@@ -47,7 +47,7 @@ export type ReceiptData = {
     options: string[];
   }[];
   paymentType: keyof typeof PaymentTypes;
-  paymentAmount: number;
+  receivedAmount: number;
   totalAmount: number;
   change: number;
 };
