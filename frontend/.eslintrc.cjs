@@ -12,9 +12,8 @@ module.exports = {
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
     "prettier/prettier": ["error", { singleQuote: false }],
-    "react/jsx-filename-extension": ["warn", { extensions: [".tsx"] }],
     "@typescript-eslint/no-non-null-assertion": "off",
-    "no-shadow": "off",
+    "react/jsx-filename-extension": ["warn", { extensions: [".tsx"] }],
     "quotes": ["error", "double"],
   },
   root: true,
